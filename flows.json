@@ -1,0 +1,168 @@
+[
+    {
+        "id": "d2076010266e691e",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "741b416bb34222f3",
+        "type": "socketcan-config",
+        "interface": "can0"
+    },
+    {
+        "id": "fb438eea61450b9a",
+        "type": "inject",
+        "z": "d2076010266e691e",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 160,
+        "y": 80,
+        "wires": [
+            [
+                "35688c0c014d34fe"
+            ]
+        ]
+    },
+    {
+        "id": "0fd5a1e3cf5dcf75",
+        "type": "debug",
+        "z": "d2076010266e691e",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1610,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "35688c0c014d34fe",
+        "type": "function",
+        "z": "d2076010266e691e",
+        "name": "",
+        "func": "msg.payload=\n{\n    \"canfd\":false,\n    \"ext\":false,\n    \"rtr\":false,\n    \"canid\":123,\n    \"dlc\":5,\n    \"data\":[1,2,3,4,5]\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 360,
+        "y": 80,
+        "wires": [
+            [
+                "20538159defe6896"
+            ]
+        ]
+    },
+    {
+        "id": "20538159defe6896",
+        "type": "socketcan-in",
+        "z": "d2076010266e691e",
+        "name": "socketcan-in",
+        "config": "741b416bb34222f3",
+        "x": 650,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "23599d99cad3a6ab",
+        "type": "socketcan-out",
+        "z": "d2076010266e691e",
+        "name": "socketcan-out",
+        "config": "741b416bb34222f3",
+        "x": 970,
+        "y": 80,
+        "wires": [
+            [
+                "077e7a4c530379b3",
+                "60484e5268855740"
+            ]
+        ]
+    },
+    {
+        "id": "077e7a4c530379b3",
+        "type": "buffer-maker",
+        "z": "d2076010266e691e",
+        "name": "CanID-Filter",
+        "specification": "spec",
+        "specificationType": "ui",
+        "items": [
+            {
+                "name": "item1",
+                "type": "uint8",
+                "length": 1,
+                "dataType": "msg",
+                "data": "payload.canid"
+            }
+        ],
+        "swap1": "",
+        "swap2": "",
+        "swap3": "",
+        "swap1Type": "swap",
+        "swap2Type": "swap",
+        "swap3Type": "swap",
+        "msgProperty": "payload",
+        "msgPropertyType": "str",
+        "x": 1310,
+        "y": 80,
+        "wires": [
+            [
+                "0fd5a1e3cf5dcf75"
+            ]
+        ]
+    },
+    {
+        "id": "60484e5268855740",
+        "type": "buffer-maker",
+        "z": "d2076010266e691e",
+        "name": "Can_Data",
+        "specification": "spec",
+        "specificationType": "ui",
+        "items": [
+            {
+                "name": "item1",
+                "type": "uint8",
+                "length": 5,
+                "dataType": "msg",
+                "data": "payload.data"
+            }
+        ],
+        "swap1": "",
+        "swap2": "",
+        "swap3": "",
+        "swap1Type": "swap",
+        "swap2Type": "swap",
+        "swap3Type": "swap",
+        "msgProperty": "payload",
+        "msgPropertyType": "str",
+        "x": 1300,
+        "y": 140,
+        "wires": [
+            [
+                "0fd5a1e3cf5dcf75"
+            ]
+        ]
+    }
+]
