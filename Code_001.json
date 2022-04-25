@@ -1,0 +1,475 @@
+[
+    {
+        "id": "fa4a5e31398adb31",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "c34443ec.f971f",
+        "type": "tab",
+        "label": "CAN",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "bee46290.a3eea",
+        "type": "subflow",
+        "name": "Subflow 1",
+        "info": "",
+        "in": [],
+        "out": []
+    },
+    {
+        "id": "b08c59f180b55b97",
+        "type": "socketcan-config",
+        "interface": "can0"
+    },
+    {
+        "id": "73b114f2741f469d",
+        "type": "socketcan-in",
+        "z": "fa4a5e31398adb31",
+        "name": "Can0_in",
+        "config": "b08c59f180b55b97",
+        "x": 600,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "003794ebc33d8db2",
+        "type": "function",
+        "z": "fa4a5e31398adb31",
+        "name": "",
+        "func": "msg.payload=\"Hello World\";\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 360,
+        "y": 260,
+        "wires": [
+            [
+                "583f17e8df314821"
+            ]
+        ]
+    },
+    {
+        "id": "583f17e8df314821",
+        "type": "debug",
+        "z": "fa4a5e31398adb31",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1530,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "aaff9e1a6d8d4b65",
+        "type": "inject",
+        "z": "fa4a5e31398adb31",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 120,
+        "y": 260,
+        "wires": [
+            [
+                "003794ebc33d8db2"
+            ]
+        ]
+    },
+    {
+        "id": "1b09dff6195df168",
+        "type": "function",
+        "z": "fa4a5e31398adb31",
+        "name": "",
+        "func": "msg.payload=\n{\n    \"canfd\":false,\n    \"ext\":false,\n    \"rtr\":false,\n    \"canid\":123,\n    \"dlc\":5,\n    \"data\":[5,4,3,2,1]\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 360,
+        "y": 80,
+        "wires": [
+            [
+                "73b114f2741f469d"
+            ]
+        ]
+    },
+    {
+        "id": "d0d18fb13e6097fd",
+        "type": "socketcan-out",
+        "z": "fa4a5e31398adb31",
+        "name": "Can0_out",
+        "config": "b08c59f180b55b97",
+        "x": 780,
+        "y": 320,
+        "wires": [
+            [
+                "01275e25cb2c42ef"
+            ]
+        ]
+    },
+    {
+        "id": "5feb6efa46ea9987",
+        "type": "inject",
+        "z": "fa4a5e31398adb31",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 120,
+        "y": 80,
+        "wires": [
+            [
+                "1b09dff6195df168"
+            ]
+        ]
+    },
+    {
+        "id": "01275e25cb2c42ef",
+        "type": "function",
+        "z": "fa4a5e31398adb31",
+        "name": "",
+        "func": "if (msg.payload.canid == 123)\nreturn msg;\nelse\nmsg.payload=\"Can ID falsch\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 980,
+        "y": 320,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "a4e03847a08a9fd7",
+        "type": "inject",
+        "z": "fa4a5e31398adb31",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 120,
+        "y": 160,
+        "wires": [
+            [
+                "8897872cbc40da42"
+            ]
+        ]
+    },
+    {
+        "id": "8897872cbc40da42",
+        "type": "function",
+        "z": "fa4a5e31398adb31",
+        "name": "",
+        "func": "msg.payload=\n{\n    \"canfd\":false,\n    \"ext\":false,\n    \"rtr\":false,\n    \"canid\":99,\n    \"dlc\":5,\n    \"data\":[1,2,3,4,5]\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 360,
+        "y": 160,
+        "wires": [
+            [
+                "623b8064b038896d"
+            ]
+        ]
+    },
+    {
+        "id": "623b8064b038896d",
+        "type": "socketcan-in",
+        "z": "fa4a5e31398adb31",
+        "name": "Can0_in",
+        "config": "b08c59f180b55b97",
+        "x": 600,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "4f8fe1350ec8ccb4",
+        "type": "buffer-maker",
+        "z": "fa4a5e31398adb31",
+        "name": "CanIDFilter",
+        "specification": "spec",
+        "specificationType": "ui",
+        "items": [
+            {
+                "name": "item1",
+                "type": "int8",
+                "length": 5,
+                "dataType": "msg",
+                "data": "payload.canid"
+            }
+        ],
+        "swap1": "",
+        "swap2": "",
+        "swap3": "",
+        "swap1Type": "swap",
+        "swap2Type": "swap",
+        "swap3Type": "swap",
+        "msgProperty": "payload",
+        "msgPropertyType": "str",
+        "x": 1090,
+        "y": 80,
+        "wires": [
+            [
+                "583f17e8df314821"
+            ]
+        ]
+    },
+    {
+        "id": "4eb1241369a50466",
+        "type": "socketcan-out",
+        "z": "fa4a5e31398adb31",
+        "name": "Can0_out",
+        "config": "b08c59f180b55b97",
+        "x": 860,
+        "y": 80,
+        "wires": [
+            [
+                "4f8fe1350ec8ccb4",
+                "c95ef8dffbd6908a"
+            ]
+        ]
+    },
+    {
+        "id": "a73e312acafc25c5",
+        "type": "function",
+        "z": "fa4a5e31398adb31",
+        "name": "",
+        "func": "x=0;\nz=0;\nwhile (x < 5)\n{\nz=z+msg.payload.buffer[x];\n}\n\nendwhile\nreturn z;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1320,
+        "y": 100,
+        "wires": [
+            [
+                "583f17e8df314821"
+            ]
+        ]
+    },
+    {
+        "id": "c95ef8dffbd6908a",
+        "type": "buffer-maker",
+        "z": "fa4a5e31398adb31",
+        "name": "Data_Filter",
+        "specification": "spec",
+        "specificationType": "ui",
+        "items": [
+            {
+                "name": "item1",
+                "type": "int8",
+                "length": 5,
+                "dataType": "msg",
+                "data": "payload.data"
+            }
+        ],
+        "swap1": "",
+        "swap2": "",
+        "swap3": "",
+        "swap1Type": "swap",
+        "swap2Type": "swap",
+        "swap3Type": "swap",
+        "msgProperty": "payload",
+        "msgPropertyType": "str",
+        "x": 1090,
+        "y": 140,
+        "wires": [
+            [
+                "a73e312acafc25c5"
+            ]
+        ]
+    },
+    {
+        "id": "4f8b2290.f8d08c",
+        "type": "socketcan-out",
+        "z": "c34443ec.f971f",
+        "name": "Can0_out",
+        "config": "b08c59f180b55b97",
+        "x": 180,
+        "y": 200,
+        "wires": [
+            [
+                "416126a3.4784b8"
+            ]
+        ]
+    },
+    {
+        "id": "416126a3.4784b8",
+        "type": "buffer-maker",
+        "z": "c34443ec.f971f",
+        "name": "",
+        "specification": "spec",
+        "specificationType": "ui",
+        "items": [
+            {
+                "name": "item1",
+                "type": "byte",
+                "length": 8,
+                "dataType": "msg",
+                "data": "payload.data"
+            }
+        ],
+        "swap1": "",
+        "swap2": "",
+        "swap3": "",
+        "swap1Type": "swap",
+        "swap2Type": "swap",
+        "swap3Type": "swap",
+        "msgProperty": "payload.data",
+        "msgPropertyType": "str",
+        "x": 320,
+        "y": 200,
+        "wires": [
+            [
+                "8b8bef59.184e6",
+                "ef52bb0c.765638",
+                "8d5199047be31c28"
+            ]
+        ]
+    },
+    {
+        "id": "2b3cda3.d1b3d26",
+        "type": "function",
+        "z": "c34443ec.f971f",
+        "name": "set tick_mot1 & position",
+        "func": "global.set(\"tick_mot1\",msg.payload);\nmsg.payload = parseFloat((msg.payload)*0.185669).toFixed(1);\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1280,
+        "y": 200,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "8b8bef59.184e6",
+        "type": "function",
+        "z": "c34443ec.f971f",
+        "name": "Splitt Ticks",
+        "func": "msg.payload = msg.payload.data.readInt32LE();\nif(msg.payload > 15000000)\n{\n    msg.payload = msg.payload - 16777216;\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 520,
+        "y": 200,
+        "wires": [
+            [
+                "2b3cda3.d1b3d26",
+                "fbcc6712.2cfb38"
+            ]
+        ]
+    },
+    {
+        "id": "ef52bb0c.765638",
+        "type": "function",
+        "z": "c34443ec.f971f",
+        "name": "Splitt Speed",
+        "func": "msg.payload = msg.payload.data.readInt16LE(5);\nglobal.set(\"speed_mot1\",msg.payload);\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 520,
+        "y": 260,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "fbcc6712.2cfb38",
+        "type": "function",
+        "z": "c34443ec.f971f",
+        "name": "set ramp_ticks",
+        "func": "if(global.get(\"duty1\") == global.get(\"cyclemode_mot1_maxspeed\") && global.get(\"ramp_ticks\") == 0 && global.get(\"cyclemode_mot1\") === true)\n{\n    if(global.get(\"cyclemode_start_value\") > msg.payload)\n    {\n        msg.payload = global.get(\"cyclemode_start_value\") - msg.payload;\n    }\n    else\n    {\n        msg.payload = global.get(\"cyclemode_start_value\") + msg.payload;\n    }\n    global.set(\"ramp_ticks\", msg.payload);\n    return msg;\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1110,
+        "y": 140,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "8d5199047be31c28",
+        "type": "debug",
+        "z": "c34443ec.f971f",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 490,
+        "y": 420,
+        "wires": []
+    }
+]
