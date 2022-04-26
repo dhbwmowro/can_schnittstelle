@@ -164,5 +164,32 @@
                 "0fd5a1e3cf5dcf75"
             ]
         ]
+    },
+    {
+        "id": "27defb4debe5192c",
+        "type": "inject",
+        "z": "d2076010266e691e",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 300,
+        "y": 160,
+        "wires": [
+            []
+        ]
     }
 ]
