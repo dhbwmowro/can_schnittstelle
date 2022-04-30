@@ -354,7 +354,7 @@
         "rap": true,
         "rh": 0,
         "inputs": 0,
-        "x": 830,
+        "x": 790,
         "y": 600,
         "wires": [
             [
@@ -420,12 +420,10 @@
         "z": "d2076010266e691e",
         "name": "socketcan-out",
         "config": "741b416bb34222f3",
-        "x": 2930,
+        "x": 2820,
         "y": 600,
         "wires": [
-            [
-                "7ff3023f913966f6"
-            ]
+            []
         ]
     },
     {
@@ -633,27 +631,11 @@
         "z": "d2076010266e691e",
         "name": "socketcan-out",
         "config": "741b416bb34222f3",
-        "x": 130,
-        "y": 1700,
+        "x": 100,
+        "y": 1780,
         "wires": [
             [
-                "d50812437e0afc5d"
-            ]
-        ]
-    },
-    {
-        "id": "d50812437e0afc5d",
-        "type": "json",
-        "z": "d2076010266e691e",
-        "name": "",
-        "property": "payload",
-        "action": "str",
-        "pretty": true,
-        "x": 310,
-        "y": 1700,
-        "wires": [
-            [
-                "4e84287871fa0987"
+                "34a37bc530cf614f"
             ]
         ]
     },
@@ -671,7 +653,7 @@
         "correl": "",
         "expiry": "",
         "broker": "cf97968c7bc02d9e",
-        "x": 480,
+        "x": 600,
         "y": 1700,
         "wires": []
     },
@@ -681,7 +663,7 @@
         "z": "d2076010266e691e",
         "name": "",
         "topic": "Feedback",
-        "qos": "0",
+        "qos": "2",
         "datatype": "auto",
         "broker": "cf97968c7bc02d9e",
         "nl": false,
@@ -744,7 +726,7 @@
         "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1890,
+        "x": 1970,
         "y": 1280,
         "wires": []
     },
@@ -857,7 +839,7 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1320,
+        "x": 1200,
         "y": 1280,
         "wires": [
             [
@@ -1162,7 +1144,7 @@
         "type": "function",
         "z": "d2076010266e691e",
         "name": "receiveDriveData",
-        "func": "msg.payload=\n{\n    \"canfd\":false,\n    \"ext\":false,\n    \"rtr\":false,\n    \"canid\":1,\n    \"dlc\":5,\n    \"data\":[msg.payload.data[0],msg.payload.data[1],msg.payload.data[2],msg.payload.data[3],msg.payload.data[4]]\n}\nreturn msg;",
+        "func": "msg.payload=\n{\n    \"canfd\":false,\n    \"ext\":false,\n    \"rtr\":false,\n    \"canid\":11,\n    \"dlc\":5,\n    \"data\":[msg.payload.data[0],msg.payload.data[1],msg.payload.data[2],msg.payload.data[3],msg.payload.data[4]]\n}\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -1175,6 +1157,83 @@
                 "67a7a6ae29640778"
             ]
         ]
+    },
+    {
+        "id": "136e0fb1c4a50b28",
+        "type": "debug",
+        "z": "d2076010266e691e",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 690,
+        "y": 1780,
+        "wires": []
+    },
+    {
+        "id": "34a37bc530cf614f",
+        "type": "function",
+        "z": "d2076010266e691e",
+        "name": "",
+        "func": "if (msg.payload.canid == 11)\n{\n    flow.set(\"FeedbackDriveMode\", msg.payload.data[0])\n    flow.set(\"FeedbackDriveSpeed\", msg.payload.data[1])\n    flow.set(\"FeedbackDriveShiftAngle\", msg.payload.data[2])\n    flow.set(\"FeedbackDriveAngle\", msg.payload.data[3])\n    flow.set(\"FeedbackDriveRadius\", msg.payload.data[4])\n    //flow.get(\"FeedbackDrive\")\n    return msg;\n}\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 340,
+        "y": 1780,
+        "wires": [
+            [
+                "136e0fb1c4a50b28"
+            ]
+        ]
+    },
+    {
+        "id": "2d9b636e3c8b1261",
+        "type": "config",
+        "z": "d2076010266e691e",
+        "name": "",
+        "properties": [
+            {
+                "p": "FeedbackDriveMode",
+                "pt": "flow",
+                "to": "Stop",
+                "tot": "str"
+            },
+            {
+                "p": "FeedbackDriveSpeed",
+                "pt": "flow",
+                "to": "0",
+                "tot": "num"
+            },
+            {
+                "p": "FeedbackDriveShiftAngle",
+                "pt": "flow",
+                "to": "0",
+                "tot": "num"
+            },
+            {
+                "p": "FeedbackDriveAngle",
+                "pt": "flow",
+                "to": "0",
+                "tot": "str"
+            },
+            {
+                "p": "FeedbackDriveRadius",
+                "pt": "flow",
+                "to": "0",
+                "tot": "num"
+            }
+        ],
+        "active": true,
+        "x": 110,
+        "y": 1860,
+        "wires": []
     },
     {
         "id": "7a6ee82c5172bf43",
