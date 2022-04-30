@@ -50,10 +50,11 @@
         "tosidebar": true,
         "console": false,
         "tostatus": false,
-        "complete": "false",
+        "complete": "true",
+        "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1610,
+        "x": 1590,
         "y": 80,
         "wires": []
     },
@@ -62,7 +63,7 @@
         "type": "function",
         "z": "d2076010266e691e",
         "name": "",
-        "func": "msg.payload=\n{\n    \"canfd\":false,\n    \"ext\":false,\n    \"rtr\":false,\n    \"canid\":123,\n    \"dlc\":5,\n    \"data\":[1,2,3,4,5]\n}\nreturn msg;",
+        "func": "msg.payload=\n{\n    \"canfd\":false,\n    \"ext\":false,\n    \"rtr\":false,\n    \"canid\":123,\n    \"dlc\":5,\n    \"data\":[5,50,3,4,5]\n}\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -72,7 +73,8 @@
         "y": 80,
         "wires": [
             [
-                "20538159defe6896"
+                "20538159defe6896",
+                "5564fa41da9b51b8"
             ]
         ]
     },
@@ -94,71 +96,6 @@
         "config": "741b416bb34222f3",
         "x": 970,
         "y": 80,
-        "wires": [
-            [
-                "077e7a4c530379b3",
-                "60484e5268855740"
-            ]
-        ]
-    },
-    {
-        "id": "077e7a4c530379b3",
-        "type": "buffer-maker",
-        "z": "d2076010266e691e",
-        "name": "CanID-Filter",
-        "specification": "spec",
-        "specificationType": "ui",
-        "items": [
-            {
-                "name": "item1",
-                "type": "uint8",
-                "length": 1,
-                "dataType": "msg",
-                "data": "payload.canid"
-            }
-        ],
-        "swap1": "",
-        "swap2": "",
-        "swap3": "",
-        "swap1Type": "swap",
-        "swap2Type": "swap",
-        "swap3Type": "swap",
-        "msgProperty": "payload",
-        "msgPropertyType": "str",
-        "x": 1310,
-        "y": 80,
-        "wires": [
-            [
-                "0fd5a1e3cf5dcf75"
-            ]
-        ]
-    },
-    {
-        "id": "60484e5268855740",
-        "type": "buffer-maker",
-        "z": "d2076010266e691e",
-        "name": "Can_Data",
-        "specification": "spec",
-        "specificationType": "ui",
-        "items": [
-            {
-                "name": "item1",
-                "type": "uint8",
-                "length": 5,
-                "dataType": "msg",
-                "data": "payload.data"
-            }
-        ],
-        "swap1": "",
-        "swap2": "",
-        "swap3": "",
-        "swap1Type": "swap",
-        "swap2Type": "swap",
-        "swap3Type": "swap",
-        "msgProperty": "payload",
-        "msgPropertyType": "str",
-        "x": 1300,
-        "y": 140,
         "wires": [
             [
                 "0fd5a1e3cf5dcf75"
@@ -192,6 +129,40 @@
             [
                 "20538159defe6896"
             ]
+        ]
+    },
+    {
+        "id": "85c3ef6b7a9a983d",
+        "type": "http in",
+        "z": "d2076010266e691e",
+        "name": "Test",
+        "url": "/hello",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 90,
+        "y": 140,
+        "wires": [
+            [
+                "35688c0c014d34fe"
+            ]
+        ]
+    },
+    {
+        "id": "5564fa41da9b51b8",
+        "type": "template",
+        "z": "d2076010266e691e",
+        "name": "",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "This is the test!",
+        "output": "str",
+        "x": 580,
+        "y": 240,
+        "wires": [
+            []
         ]
     }
 ]
