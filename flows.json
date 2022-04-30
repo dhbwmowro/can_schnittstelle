@@ -163,23 +163,6 @@
         ]
     },
     {
-        "id": "85c3ef6b7a9a983d",
-        "type": "http in",
-        "z": "d2076010266e691e",
-        "name": "Test",
-        "url": "/hello",
-        "method": "get",
-        "upload": false,
-        "swaggerDoc": "",
-        "x": 90,
-        "y": 140,
-        "wires": [
-            [
-                "35688c0c014d34fe"
-            ]
-        ]
-    },
-    {
         "id": "5564fa41da9b51b8",
         "type": "template",
         "z": "d2076010266e691e",
@@ -345,8 +328,8 @@
         "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 4590,
-        "y": 560,
+        "x": 3370,
+        "y": 540,
         "wires": []
     },
     {
@@ -380,8 +363,8 @@
         "z": "d2076010266e691e",
         "name": "socketcan-in",
         "config": "741b416bb34222f3",
-        "x": 4230,
-        "y": 560,
+        "x": 2990,
+        "y": 540,
         "wires": []
     },
     {
@@ -390,8 +373,8 @@
         "z": "d2076010266e691e",
         "name": "socketcan-out",
         "config": "741b416bb34222f3",
-        "x": 4410,
-        "y": 560,
+        "x": 3190,
+        "y": 540,
         "wires": [
             [
                 "7ff3023f913966f6"
@@ -496,7 +479,7 @@
         "property": "payload",
         "action": "obj",
         "pretty": true,
-        "x": 1930,
+        "x": 1370,
         "y": 580,
         "wires": [
             [
@@ -573,7 +556,7 @@
         "swap3Type": "swap",
         "msgProperty": "payload.data",
         "msgPropertyType": "str",
-        "x": 3510,
+        "x": 2630,
         "y": 540,
         "wires": [
             [
@@ -830,7 +813,7 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 2070,
+        "x": 1510,
         "y": 580,
         "wires": [
             [
@@ -849,7 +832,7 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 2500,
+        "x": 1920,
         "y": 560,
         "wires": [
             [
@@ -1068,7 +1051,7 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 2710,
+        "x": 2070,
         "y": 560,
         "wires": [
             [
@@ -1087,7 +1070,7 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 3160,
+        "x": 2460,
         "y": 540,
         "wires": [
             [
@@ -1106,8 +1089,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 3950,
-        "y": 560,
+        "x": 2810,
+        "y": 540,
         "wires": [
             [
                 "67a7a6ae29640778"
@@ -1136,7 +1119,7 @@
         "checkall": "true",
         "repair": false,
         "outputs": 2,
-        "x": 2260,
+        "x": 1700,
         "y": 580,
         "wires": [
             [
@@ -1161,8 +1144,8 @@
         "correl": "",
         "expiry": "",
         "broker": "cf97968c7bc02d9e",
-        "x": 2480,
-        "y": 620,
+        "x": 1900,
+        "y": 600,
         "wires": []
     },
     {
@@ -1228,7 +1211,7 @@
         "checkall": "true",
         "repair": false,
         "outputs": 2,
-        "x": 2920,
+        "x": 2240,
         "y": 560,
         "wires": [
             [
@@ -1253,8 +1236,8 @@
         "correl": "",
         "expiry": "",
         "broker": "cf97968c7bc02d9e",
-        "x": 3140,
-        "y": 600,
+        "x": 2440,
+        "y": 580,
         "wires": []
     },
     {
@@ -1304,7 +1287,7 @@
         "correl": "",
         "expiry": "",
         "broker": "cf97968c7bc02d9e",
-        "x": 1400,
+        "x": 1380,
         "y": 640,
         "wires": []
     },
@@ -1313,7 +1296,7 @@
         "type": "function",
         "z": "d2076010266e691e",
         "name": "",
-        "func": "Mode = (msg.payload.indexOf(\"\\\"Mode\\\":\"));\nSpeed = (msg.payload.indexOf(\",\\\"Speed\\\":\"))\nAngle = (msg.payload.indexOf(\",\\\"Angle\\\":\"));\nRadius = (msg.payload.indexOf(\",\\\"Radius\\\":\"));\n\nif ((Mode==-1) || (Speed==-1) || (Angle==-1) ||(Radius==-1) )\n{\nmsg.payload = \"Syntax ueberpruefen!\"\n}\n\nfor (i = Speed + 9 ; i < Angle; i++) \n{\n   \n   if (isNaN(msg.payload[i]) == true)\n   {\n        if(msg.payload[i] != \".\")\n        {\n            msg.payload = \"Syntax ueberpruefen!\"\n            return msg\n        }\n   }\n    \n}\n\nfor (i = Angle + 9 ; i < Radius; i++) \n{\n   \n   if (isNaN(msg.payload[i]) == true)\n   {\n        if(msg.payload[i] != \".\")\n        {\n            msg.payload = \"Syntax ueberpruefen!\"\n            return msg\n        }\n   }\n    \n}\n\nfor (i = Radius + 10 ; i < msg.payload.length; i++) \n{\n   \n   if (isNaN(msg.payload[i]) == true)\n   {\n        if(msg.payload[i] != \".\")\n        {\n            msg.payload = \"Syntax ueberpruefen!\"\n            return msg\n        }\n   }\n    \n}\n\nreturn msg;",
+        "func": "Mode = (msg.payload.indexOf(\"\\\"Mode\\\":\"));\nSpeed = (msg.payload.indexOf(\",\\\"Speed\\\":\"))\nAngle = (msg.payload.indexOf(\",\\\"Angle\\\":\"));\nRadius = (msg.payload.indexOf(\",\\\"Radius\\\":\"));\n\nif ((Mode==-1) || (Speed==-1) || (Angle==-1) ||(Radius==-1) )\n{\nmsg.payload = \"Syntax ueberpruefen!\"\n}\n\nfor (i = Speed + 9 ; i < Angle; i++) \n{\n   \n   if (isNaN(msg.payload[i]) == true)\n   {\n        if(msg.payload[i] != \".\")\n        {\n            msg.payload = \"Syntax ueberpruefen!\"\n            return msg\n        }\n   }\n    \n}\n\nfor (i = Angle + 9 ; i < Radius; i++) \n{\n   \n   if (isNaN(msg.payload[i]) == true)\n   {\n        if(msg.payload[i] != \".\")\n        {\n            msg.payload = \"Syntax ueberpruefen!\"\n            return msg\n        }\n   }\n    \n}\n\nfor (i = Radius + 10 ; i < msg.payload.length-1; i++) \n{\n   \n   if (isNaN(msg.payload[i]) == true)\n   {\n        if(msg.payload[i] != \".\")\n        {\n            msg.payload = \"Syntax ueberpruefen!\"\n            return msg\n        }\n   }\n    \n}\n\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -1323,46 +1306,9 @@
         "y": 600,
         "wires": [
             [
-                "8258439bf7759f91",
-                "d3c080ce0e8f239a"
+                "8258439bf7759f91"
             ]
         ]
-    },
-    {
-        "id": "f87c667faac979ab",
-        "type": "mqtt out",
-        "z": "d2076010266e691e",
-        "name": "",
-        "topic": "Feedback",
-        "qos": "2",
-        "retain": "",
-        "respTopic": "",
-        "contentType": "",
-        "userProps": "",
-        "correl": "",
-        "expiry": "",
-        "broker": "cf97968c7bc02d9e",
-        "x": 1940,
-        "y": 640,
-        "wires": []
-    },
-    {
-        "id": "d3c080ce0e8f239a",
-        "type": "mqtt out",
-        "z": "d2076010266e691e",
-        "name": "",
-        "topic": "Feedback",
-        "qos": "2",
-        "retain": "",
-        "respTopic": "",
-        "contentType": "",
-        "userProps": "",
-        "correl": "",
-        "expiry": "",
-        "broker": "cf97968c7bc02d9e",
-        "x": 1120,
-        "y": 680,
-        "wires": []
     },
     {
         "id": "7a6ee82c5172bf43",
