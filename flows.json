@@ -8,9 +8,43 @@
         "env": []
     },
     {
+        "id": "58d29239db35f478",
+        "type": "tab",
+        "label": "Tristan",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
         "id": "741b416bb34222f3",
         "type": "socketcan-config",
         "interface": "can0"
+    },
+    {
+        "id": "cf97968c7bc02d9e",
+        "type": "mqtt-broker",
+        "name": "",
+        "broker": "raspberrypi.local",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "sessionExpiry": ""
     },
     {
         "id": "fb438eea61450b9a",
@@ -163,40 +197,6 @@
         ]
     },
     {
-        "id": "58d29239db35f478",
-        "type": "tab",
-        "label": "Tristan",
-        "disabled": false,
-        "info": "",
-        "env": []
-    },
-    {
-        "id": "cf97968c7bc02d9e",
-        "type": "mqtt-broker",
-        "name": "",
-        "broker": "raspberrypi.local",
-        "port": "1883",
-        "clientid": "",
-        "autoConnect": true,
-        "usetls": false,
-        "protocolVersion": "4",
-        "keepalive": "60",
-        "cleansession": true,
-        "birthTopic": "",
-        "birthQos": "0",
-        "birthPayload": "",
-        "birthMsg": {},
-        "closeTopic": "",
-        "closeQos": "0",
-        "closePayload": "",
-        "closeMsg": {},
-        "willTopic": "",
-        "willQos": "0",
-        "willPayload": "",
-        "willMsg": {},
-        "sessionExpiry": ""
-    },
-    {
         "id": "725004eea16c0223",
         "type": "inject",
         "z": "d2076010266e691e",
@@ -328,7 +328,7 @@
         "y": 600,
         "wires": [
             [
-                "f1dd287a4485b272"
+                "ddd20385d637b753"
             ]
         ]
     },
@@ -345,8 +345,8 @@
         "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 3190,
-        "y": 600,
+        "x": 4590,
+        "y": 560,
         "wires": []
     },
     {
@@ -380,8 +380,8 @@
         "z": "d2076010266e691e",
         "name": "socketcan-in",
         "config": "741b416bb34222f3",
-        "x": 2510,
-        "y": 600,
+        "x": 4230,
+        "y": 560,
         "wires": []
     },
     {
@@ -390,8 +390,8 @@
         "z": "d2076010266e691e",
         "name": "socketcan-out",
         "config": "741b416bb34222f3",
-        "x": 2930,
-        "y": 600,
+        "x": 4410,
+        "y": 560,
         "wires": [
             [
                 "7ff3023f913966f6"
@@ -496,8 +496,8 @@
         "property": "payload",
         "action": "obj",
         "pretty": true,
-        "x": 970,
-        "y": 600,
+        "x": 1930,
+        "y": 580,
         "wires": [
             [
                 "ff7ffd42f8a0c80a"
@@ -515,27 +515,11 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1340,
-        "y": 440,
+        "x": 1300,
+        "y": 420,
         "wires": [
             []
         ]
-    },
-    {
-        "id": "6f448bf47e4ac98d",
-        "type": "debug",
-        "z": "d2076010266e691e",
-        "name": "",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 2510,
-        "y": 520,
-        "wires": []
     },
     {
         "id": "bdd8a0509a42a633",
@@ -589,8 +573,8 @@
         "swap3Type": "swap",
         "msgProperty": "payload.data",
         "msgPropertyType": "str",
-        "x": 1930,
-        "y": 600,
+        "x": 3510,
+        "y": 540,
         "wires": [
             [
                 "78f81452ce40e35b"
@@ -622,9 +606,7 @@
         "x": 310,
         "y": 1700,
         "wires": [
-            [
-                "4e84287871fa0987"
-            ]
+            []
         ]
     },
     {
@@ -651,7 +633,7 @@
         "z": "d2076010266e691e",
         "name": "",
         "topic": "Feedback",
-        "qos": "0",
+        "qos": "2",
         "datatype": "auto",
         "broker": "cf97968c7bc02d9e",
         "nl": false,
@@ -661,7 +643,9 @@
         "x": 740,
         "y": 1700,
         "wires": [
-            []
+            [
+                "cc029c6b5bf83e99"
+            ]
         ]
     },
     {
@@ -840,17 +824,17 @@
         "type": "function",
         "z": "d2076010266e691e",
         "name": "switchMode",
-        "func": "switch (msg.payload.Mode)\n{\ncase \"Stop\":\n    \n    msg.payload.binMode=0b11111111\n    return msg;\n    \ncase \"Forward\":\n\n    msg.payload.binMode=0b00000001\n    return msg;  \n    \ncase \"Backward\":\n\n     msg.payload.binMode=0b00000010\n    return msg; \n\ncase \"RightTurnForward\":\n\n     msg.payload.binMode=0b00000011\n    return msg;\n    \ncase \"RightTurnBackward\":\n\n      msg.payload.binMode=0b00000100\n    return msg;\n    \ncase \"LeftTurnForward\":\n\n    msg.payload.binMode=0b00000101\n    return msg;\n    \ncase \"LeftTurnBackward\":\n\n     msg.payload.binMode=0b00000110\n    return msg;\n    \ncase \"ClockwiseRotation\":\n\n    msg.payload.binMode=0b00000111\n    return msg;\n    \ncase \"CounterClockwiseRotation\":\n\n    msg.payload.binMode=0b00001000\n    return msg;\n\n    \n}",
+        "func": "switch (msg.payload.Mode)\n{\ncase \"Stop\":\n    \n    msg.payload.binMode=0b11111111\n    return msg;\n    \ncase \"Forward\":\n\n    msg.payload.binMode=0b00000001\n    return msg;  \n    \ncase \"Backward\":\n\n     msg.payload.binMode=0b00000010\n    return msg; \n\ncase \"RightTurnForward\":\n\n     msg.payload.binMode=0b00000011\n    return msg;\n    \ncase \"RightTurnBackward\":\n\n      msg.payload.binMode=0b00000100\n    return msg;\n    \ncase \"LeftTurnForward\":\n\n    msg.payload.binMode=0b00000101\n    return msg;\n    \ncase \"LeftTurnBackward\":\n\n     msg.payload.binMode=0b00000110\n    return msg;\n    \ncase \"ClockwiseRotation\":\n\n    msg.payload.binMode=0b00000111\n    return msg;\n    \ncase \"CounterClockwiseRotation\":\n\n    msg.payload.binMode=0b00001000\n    return msg;\n\ndefault:\n    msg.payload = \"Mode nicht definiert. Bitte Eingabeparameter ueberpruefen!\"\n    return msg;\n}",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1150,
-        "y": 600,
+        "x": 2070,
+        "y": 580,
         "wires": [
             [
-                "ead899817251434e"
+                "0fac06133517bace"
             ]
         ]
     },
@@ -865,8 +849,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1340,
-        "y": 600,
+        "x": 2500,
+        "y": 560,
         "wires": [
             [
                 "5f62c78599bf213b"
@@ -913,7 +897,7 @@
         "once": false,
         "onceDelay": 0.1,
         "topic": "",
-        "payload": "{\"Mode\":\"RightTurnForward\",\"Speed\":9.85697,\"Angle\":340,\"Radius\":1.25848}",
+        "payload": "{\"Mode\":\"RightTurnForward\",\"Speed\":9.85697,\"Angle\":489,\"Radius\":1.25848}",
         "payloadType": "json",
         "x": 170,
         "y": 780,
@@ -1074,37 +1058,21 @@
         ]
     },
     {
-        "id": "399c098c05664748",
-        "type": "debug",
-        "z": "d2076010266e691e",
-        "name": "",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 1890,
-        "y": 680,
-        "wires": []
-    },
-    {
         "id": "5f62c78599bf213b",
         "type": "function",
         "z": "d2076010266e691e",
         "name": "Angle",
-        "func": "if (msg.payload.Angle > 255)\n{\n    msg.payload.ShiftAngle = 1\n    msg.payload.Angle = msg.payload.Angle-256\n}\nreturn msg;",
+        "func": "if (msg.payload.Angle > 360)\n{\n    msg.payload = \"Winkel darf maximal 360 Grad gross sein!\"\n}\nelse if (361 > msg.payload.Angle > 255)\n{\n    msg.payload.ShiftAngle = 1\n    msg.payload.Angle = msg.payload.Angle-256\n}\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1530,
-        "y": 600,
+        "x": 2710,
+        "y": 560,
         "wires": [
             [
-                "3833bd0a23d1ad42"
+                "3aeee01204342351"
             ]
         ]
     },
@@ -1119,8 +1087,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1700,
-        "y": 600,
+        "x": 3160,
+        "y": 540,
         "wires": [
             [
                 "bdd8a0509a42a633"
@@ -1138,13 +1106,263 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 2210,
-        "y": 600,
+        "x": 3950,
+        "y": 560,
         "wires": [
             [
                 "67a7a6ae29640778"
             ]
         ]
+    },
+    {
+        "id": "0fac06133517bace",
+        "type": "switch",
+        "z": "d2076010266e691e",
+        "name": "ErrorHandling_Mode",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "neq",
+                "v": "Mode nicht definiert. Bitte Eingabeparameter ueberpruefen!",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "Mode nicht definiert. Bitte Eingabeparameter ueberpruefen!",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 2260,
+        "y": 580,
+        "wires": [
+            [
+                "ead899817251434e"
+            ],
+            [
+                "2053b05bf69140f8"
+            ]
+        ]
+    },
+    {
+        "id": "2053b05bf69140f8",
+        "type": "mqtt out",
+        "z": "d2076010266e691e",
+        "name": "",
+        "topic": "Feedback",
+        "qos": "2",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "cf97968c7bc02d9e",
+        "x": 2480,
+        "y": 620,
+        "wires": []
+    },
+    {
+        "id": "f59ed71297a77f76",
+        "type": "inject",
+        "z": "d2076010266e691e",
+        "name": "ErrorTest_Mode",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"Mode\":\"Stop\",\"Speed\":2,\"Angle\":0,\"Radius\":0}",
+        "payloadType": "json",
+        "x": 160,
+        "y": 540,
+        "wires": [
+            [
+                "72f295af932710c5"
+            ]
+        ]
+    },
+    {
+        "id": "cc029c6b5bf83e99",
+        "type": "debug",
+        "z": "d2076010266e691e",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 950,
+        "y": 1700,
+        "wires": []
+    },
+    {
+        "id": "3aeee01204342351",
+        "type": "switch",
+        "z": "d2076010266e691e",
+        "name": "ErrorHandling_Angle",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "neq",
+                "v": "Winkel darf maximal 360 Grad gross sein!",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "Winkel darf maximal 360 Grad gross sein!",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 2920,
+        "y": 560,
+        "wires": [
+            [
+                "3833bd0a23d1ad42"
+            ],
+            [
+                "7b1d39b3bc82d727"
+            ]
+        ]
+    },
+    {
+        "id": "7b1d39b3bc82d727",
+        "type": "mqtt out",
+        "z": "d2076010266e691e",
+        "name": "",
+        "topic": "Feedback",
+        "qos": "2",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "cf97968c7bc02d9e",
+        "x": 3140,
+        "y": 600,
+        "wires": []
+    },
+    {
+        "id": "8258439bf7759f91",
+        "type": "switch",
+        "z": "d2076010266e691e",
+        "name": "ErrorHandling_Syntax",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "neq",
+                "v": "Syntax ueberpruefen!",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "Syntax ueberpruefen!",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 1180,
+        "y": 600,
+        "wires": [
+            [
+                "f1dd287a4485b272"
+            ],
+            [
+                "96a2328dc4d58d28"
+            ]
+        ]
+    },
+    {
+        "id": "96a2328dc4d58d28",
+        "type": "mqtt out",
+        "z": "d2076010266e691e",
+        "name": "",
+        "topic": "Feedback",
+        "qos": "2",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "cf97968c7bc02d9e",
+        "x": 1400,
+        "y": 640,
+        "wires": []
+    },
+    {
+        "id": "ddd20385d637b753",
+        "type": "function",
+        "z": "d2076010266e691e",
+        "name": "",
+        "func": "Mode = (msg.payload.indexOf(\"\\\"Mode\\\":\"));\nSpeed = (msg.payload.indexOf(\",\\\"Speed\\\":\"))\nAngle = (msg.payload.indexOf(\",\\\"Angle\\\":\"));\nRadius = (msg.payload.indexOf(\",\\\"Radius\\\":\"));\n\nif ((Mode==-1) || (Speed==-1) || (Angle==-1) ||(Radius==-1) )\n{\nmsg.payload = \"Syntax ueberpruefen!\"\n}\n\nfor (i = Speed + 9 ; i < Angle; i++) \n{\n   \n   if (isNaN(msg.payload[i]) == true)\n   {\n        if(msg.payload[i] != \".\")\n        {\n            msg.payload = \"Syntax ueberpruefen!\"\n            return msg\n        }\n   }\n    \n}\n\nfor (i = Angle + 9 ; i < Radius; i++) \n{\n   \n   if (isNaN(msg.payload[i]) == true)\n   {\n        if(msg.payload[i] != \".\")\n        {\n            msg.payload = \"Syntax ueberpruefen!\"\n            return msg\n        }\n   }\n    \n}\n\nfor (i = Radius + 10 ; i < msg.payload.length; i++) \n{\n   \n   if (isNaN(msg.payload[i]) == true)\n   {\n        if(msg.payload[i] != \".\")\n        {\n            msg.payload = \"Syntax ueberpruefen!\"\n            return msg\n        }\n   }\n    \n}\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 980,
+        "y": 600,
+        "wires": [
+            [
+                "8258439bf7759f91",
+                "d3c080ce0e8f239a"
+            ]
+        ]
+    },
+    {
+        "id": "f87c667faac979ab",
+        "type": "mqtt out",
+        "z": "d2076010266e691e",
+        "name": "",
+        "topic": "Feedback",
+        "qos": "2",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "cf97968c7bc02d9e",
+        "x": 1940,
+        "y": 640,
+        "wires": []
+    },
+    {
+        "id": "d3c080ce0e8f239a",
+        "type": "mqtt out",
+        "z": "d2076010266e691e",
+        "name": "",
+        "topic": "Feedback",
+        "qos": "2",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "cf97968c7bc02d9e",
+        "x": 1120,
+        "y": 680,
+        "wires": []
     },
     {
         "id": "7a6ee82c5172bf43",
