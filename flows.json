@@ -2,7 +2,7 @@
     {
         "id": "d2076010266e691e",
         "type": "tab",
-        "label": "Flow 1",
+        "label": "Alex",
         "disabled": false,
         "info": "",
         "env": []
@@ -50,11 +50,11 @@
         "tosidebar": true,
         "console": false,
         "tostatus": false,
-        "complete": "true",
-        "targetType": "full",
+        "complete": "payload",
+        "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1590,
+        "x": 1330,
         "y": 80,
         "wires": []
     },
@@ -62,19 +62,18 @@
         "id": "35688c0c014d34fe",
         "type": "function",
         "z": "d2076010266e691e",
-        "name": "",
-        "func": "msg.payload=\n{\n    \"canfd\":false,\n    \"ext\":false,\n    \"rtr\":false,\n    \"canid\":123,\n    \"dlc\":5,\n    \"data\":[5,50,3,4,5]\n}\nreturn msg;",
+        "name": "receiveOperationMode",
+        "func": "msg.payload=\n{\n    \"canfd\":false,\n    \"ext\":false,\n    \"rtr\":false,\n    \"canid\":0,\n    \"dlc\":5,\n    \"data\":[1,2,3,4,5]\n}\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 360,
+        "x": 420,
         "y": 80,
         "wires": [
             [
-                "20538159defe6896",
-                "5564fa41da9b51b8"
+                "20538159defe6896"
             ]
         ]
     },
@@ -94,12 +93,10 @@
         "z": "d2076010266e691e",
         "name": "socketcan-out",
         "config": "741b416bb34222f3",
-        "x": 970,
+        "x": 890,
         "y": 80,
         "wires": [
-            [
-                "0fd5a1e3cf5dcf75"
-            ]
+            []
         ]
     },
     {
@@ -123,11 +120,11 @@
         "topic": "",
         "payload": "",
         "payloadType": "date",
-        "x": 300,
-        "y": 160,
+        "x": 160,
+        "y": 140,
         "wires": [
             [
-                "20538159defe6896"
+                "2a8f5f9ddd1745ea"
             ]
         ]
     },
@@ -163,6 +160,1219 @@
         "y": 240,
         "wires": [
             []
+        ]
+    },
+    {
+        "id": "58d29239db35f478",
+        "type": "tab",
+        "label": "Tristan",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "cf97968c7bc02d9e",
+        "type": "mqtt-broker",
+        "name": "",
+        "broker": "raspberrypi.local",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "sessionExpiry": ""
+    },
+    {
+        "id": "725004eea16c0223",
+        "type": "inject",
+        "z": "d2076010266e691e",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 160,
+        "y": 200,
+        "wires": [
+            [
+                "943f693a51080238"
+            ]
+        ]
+    },
+    {
+        "id": "2a8f5f9ddd1745ea",
+        "type": "function",
+        "z": "d2076010266e691e",
+        "name": "receiveDriveData",
+        "func": "msg.payload=\n{\n    \"canfd\":false,\n    \"ext\":false,\n    \"rtr\":false,\n    \"canid\":1,\n    \"dlc\":5,\n    \"data\":[1,2,3,4,5]\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 410,
+        "y": 140,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "943f693a51080238",
+        "type": "function",
+        "z": "d2076010266e691e",
+        "name": "receiveMotorData",
+        "func": "msg.payload=\n{\n    \"canfd\":false,\n    \"ext\":false,\n    \"rtr\":false,\n    \"canid\":2,\n    \"dlc\":5,\n    \"data\":[1,2,3,4,5]\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 410,
+        "y": 200,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "7bc92802bed7a187",
+        "type": "http in",
+        "z": "d2076010266e691e",
+        "name": "",
+        "url": "/time",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 140,
+        "y": 380,
+        "wires": [
+            [
+                "4fa8f119994cd720"
+            ]
+        ]
+    },
+    {
+        "id": "4fa8f119994cd720",
+        "type": "function",
+        "z": "d2076010266e691e",
+        "name": "",
+        "func": "jetzt=new Date();\nmsg.payload=\"Es ist gerade \" + (1+jetzt.getHours()) + \" Uhr \" + jetzt.getMinutes() + \" und \" + jetzt.getSeconds() + \" und \" + Date.now()  +\"\\n\" \n\nreturn msg",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 380,
+        "y": 380,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "72f295af932710c5",
+        "type": "mqtt out",
+        "z": "d2076010266e691e",
+        "name": "",
+        "topic": "MowRo",
+        "qos": "2",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "cf97968c7bc02d9e",
+        "x": 620,
+        "y": 600,
+        "wires": []
+    },
+    {
+        "id": "cea5bf1a3215d8c6",
+        "type": "mqtt in",
+        "z": "d2076010266e691e",
+        "name": "",
+        "topic": "MowRo",
+        "qos": "2",
+        "datatype": "utf8",
+        "broker": "cf97968c7bc02d9e",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 830,
+        "y": 600,
+        "wires": [
+            [
+                "f1dd287a4485b272"
+            ]
+        ]
+    },
+    {
+        "id": "7ff3023f913966f6",
+        "type": "debug",
+        "z": "d2076010266e691e",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 3190,
+        "y": 600,
+        "wires": []
+    },
+    {
+        "id": "37e1475948c27166",
+        "type": "inject",
+        "z": "d2076010266e691e",
+        "name": "Forward",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"Mode\":\"Forward\",\"Speed\":9,\"Angle\":0,\"Radius\":0}",
+        "payloadType": "json",
+        "x": 140,
+        "y": 660,
+        "wires": [
+            [
+                "72f295af932710c5"
+            ]
+        ]
+    },
+    {
+        "id": "67a7a6ae29640778",
+        "type": "socketcan-in",
+        "z": "d2076010266e691e",
+        "name": "socketcan-in",
+        "config": "741b416bb34222f3",
+        "x": 2510,
+        "y": 600,
+        "wires": []
+    },
+    {
+        "id": "95a2c1719e83503c",
+        "type": "socketcan-out",
+        "z": "d2076010266e691e",
+        "name": "socketcan-out",
+        "config": "741b416bb34222f3",
+        "x": 2930,
+        "y": 600,
+        "wires": [
+            [
+                "7ff3023f913966f6"
+            ]
+        ]
+    },
+    {
+        "id": "d3f23371667d410b",
+        "type": "function",
+        "z": "d2076010266e691e",
+        "name": "receiveOperationMode",
+        "func": "msg.payload=\n{\n    \"canfd\":false,\n    \"ext\":false,\n    \"rtr\":false,\n    \"canid\":0,\n    \"dlc\":5,\n    \"data\":[1,2,3,4,5]\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 420,
+        "y": 300,
+        "wires": [
+            [
+                "939339234ddc5951"
+            ]
+        ]
+    },
+    {
+        "id": "939339234ddc5951",
+        "type": "socketcan-in",
+        "z": "d2076010266e691e",
+        "name": "socketcan-in",
+        "config": "741b416bb34222f3",
+        "x": 650,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "fd199568a53f70b4",
+        "type": "socketcan-out",
+        "z": "d2076010266e691e",
+        "name": "socketcan-out",
+        "config": "741b416bb34222f3",
+        "x": 890,
+        "y": 300,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "751fbf990957b83c",
+        "type": "http response",
+        "z": "d2076010266e691e",
+        "name": "",
+        "statusCode": "504",
+        "headers": {
+            "msg.res": ""
+        },
+        "x": 1320,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "10d9f8b8010c7cbb",
+        "type": "http in",
+        "z": "d2076010266e691e",
+        "name": "",
+        "url": "/Can",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 140,
+        "y": 300,
+        "wires": [
+            [
+                "d3f23371667d410b"
+            ]
+        ]
+    },
+    {
+        "id": "7e196c412d4b9468",
+        "type": "function",
+        "z": "d2076010266e691e",
+        "name": "",
+        "func": "return msg.payload.data;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1100,
+        "y": 300,
+        "wires": [
+            [
+                "751fbf990957b83c"
+            ]
+        ]
+    },
+    {
+        "id": "f1dd287a4485b272",
+        "type": "json",
+        "z": "d2076010266e691e",
+        "name": "",
+        "property": "payload",
+        "action": "obj",
+        "pretty": true,
+        "x": 970,
+        "y": 600,
+        "wires": [
+            [
+                "ff7ffd42f8a0c80a"
+            ]
+        ]
+    },
+    {
+        "id": "cddab7fc4c4a24eb",
+        "type": "function",
+        "z": "d2076010266e691e",
+        "name": "",
+        "func": "x=0\nbuffer = new Array(5)\nwhile(x<5)\n{\nbuffer[x] = msg.payload.data[x];\nx++;\n}\nx=0\nmsg.payload=\n{\n    \"canfd\":msg.payload.canfd,\n    \"ext\":msg.payload.ext,\n    \"rtr\":msg.payload.rtr,\n    \"canid\":msg.payload.canid,\n    \"dlc\":5,\n    \"data\":[buffer[0],buffer[1],buffer[2],buffer[3],buffer[4]]\n}\nreturn msg;\n\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1340,
+        "y": 440,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "6f448bf47e4ac98d",
+        "type": "debug",
+        "z": "d2076010266e691e",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2510,
+        "y": 520,
+        "wires": []
+    },
+    {
+        "id": "bdd8a0509a42a633",
+        "type": "buffer-maker",
+        "z": "d2076010266e691e",
+        "name": "",
+        "specification": "spec",
+        "specificationType": "ui",
+        "items": [
+            {
+                "name": "Mode",
+                "type": "uint8",
+                "length": 1,
+                "dataType": "msg",
+                "data": "payload.binMode"
+            },
+            {
+                "name": "Speed",
+                "type": "uint8",
+                "length": 1,
+                "dataType": "msg",
+                "data": "payload.Speed"
+            },
+            {
+                "name": "ShiftAngle",
+                "type": "uint8",
+                "length": 1,
+                "dataType": "msg",
+                "data": "payload.ShiftAngle"
+            },
+            {
+                "name": "Angle",
+                "type": "uint8",
+                "length": 1,
+                "dataType": "msg",
+                "data": "payload.Angle"
+            },
+            {
+                "name": "Radius",
+                "type": "uint8",
+                "length": 1,
+                "dataType": "msg",
+                "data": "payload.Radius"
+            }
+        ],
+        "swap1": "",
+        "swap2": "",
+        "swap3": "",
+        "swap1Type": "swap",
+        "swap2Type": "swap",
+        "swap3Type": "swap",
+        "msgProperty": "payload.data",
+        "msgPropertyType": "str",
+        "x": 1930,
+        "y": 600,
+        "wires": [
+            [
+                "78f81452ce40e35b"
+            ]
+        ]
+    },
+    {
+        "id": "902cf0679006d0e8",
+        "type": "socketcan-out",
+        "z": "d2076010266e691e",
+        "name": "socketcan-out",
+        "config": "741b416bb34222f3",
+        "x": 130,
+        "y": 1700,
+        "wires": [
+            [
+                "d50812437e0afc5d"
+            ]
+        ]
+    },
+    {
+        "id": "d50812437e0afc5d",
+        "type": "json",
+        "z": "d2076010266e691e",
+        "name": "",
+        "property": "payload",
+        "action": "str",
+        "pretty": true,
+        "x": 310,
+        "y": 1700,
+        "wires": [
+            [
+                "4e84287871fa0987"
+            ]
+        ]
+    },
+    {
+        "id": "4e84287871fa0987",
+        "type": "mqtt out",
+        "z": "d2076010266e691e",
+        "name": "",
+        "topic": "Feedback",
+        "qos": "0",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "cf97968c7bc02d9e",
+        "x": 480,
+        "y": 1700,
+        "wires": []
+    },
+    {
+        "id": "282614a17b9b693f",
+        "type": "mqtt in",
+        "z": "d2076010266e691e",
+        "name": "",
+        "topic": "Feedback",
+        "qos": "0",
+        "datatype": "auto",
+        "broker": "cf97968c7bc02d9e",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 740,
+        "y": 1700,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "1c7ce4b1901877cd",
+        "type": "mqtt out",
+        "z": "d2076010266e691e",
+        "name": "",
+        "topic": "MowRo",
+        "qos": "0",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "cf97968c7bc02d9e",
+        "x": 600,
+        "y": 1280,
+        "wires": []
+    },
+    {
+        "id": "f26cc9e471293a7e",
+        "type": "mqtt in",
+        "z": "d2076010266e691e",
+        "name": "",
+        "topic": "MowRo",
+        "qos": "0",
+        "datatype": "utf8",
+        "broker": "cf97968c7bc02d9e",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 810,
+        "y": 1280,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "1a567617f26f8e1d",
+        "type": "debug",
+        "z": "d2076010266e691e",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1890,
+        "y": 1280,
+        "wires": []
+    },
+    {
+        "id": "642d483d2d7adeba",
+        "type": "inject",
+        "z": "d2076010266e691e",
+        "name": "Stop",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"action\":\"Stop\"}",
+        "payloadType": "json",
+        "x": 130,
+        "y": 1280,
+        "wires": [
+            [
+                "fbe684bdb6103b14"
+            ]
+        ]
+    },
+    {
+        "id": "fbe684bdb6103b14",
+        "type": "function",
+        "z": "d2076010266e691e",
+        "name": "",
+        "func": "msg.payload=\n{\n    \"Mode\":Stop,\n    \"Speed\":0,\n    \"Angle\":0,\n    \"Radius\":0,\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 300,
+        "y": 1280,
+        "wires": [
+            [
+                "8f7a26e96f8d9074"
+            ]
+        ]
+    },
+    {
+        "id": "8f7a26e96f8d9074",
+        "type": "json",
+        "z": "d2076010266e691e",
+        "name": "",
+        "property": "payload",
+        "action": "str",
+        "pretty": true,
+        "x": 450,
+        "y": 1280,
+        "wires": [
+            [
+                "1c7ce4b1901877cd"
+            ]
+        ]
+    },
+    {
+        "id": "878ddb55cbfba12f",
+        "type": "socketcan-in",
+        "z": "d2076010266e691e",
+        "name": "socketcan-in",
+        "config": "741b416bb34222f3",
+        "x": 1510,
+        "y": 1280,
+        "wires": []
+    },
+    {
+        "id": "ad0bcf2cd301350a",
+        "type": "socketcan-out",
+        "z": "d2076010266e691e",
+        "name": "socketcan-out",
+        "config": "741b416bb34222f3",
+        "x": 1710,
+        "y": 1280,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "2a44815cdcecaa47",
+        "type": "json",
+        "z": "d2076010266e691e",
+        "name": "",
+        "property": "payload",
+        "action": "obj",
+        "pretty": true,
+        "x": 970,
+        "y": 1280,
+        "wires": [
+            [
+                "aa8bf07a405357ed"
+            ]
+        ]
+    },
+    {
+        "id": "aa8bf07a405357ed",
+        "type": "function",
+        "z": "d2076010266e691e",
+        "name": "",
+        "func": "x=0\nbuffer = new Array(5)\nwhile(x<5)\n{\nbuffer[x] = msg.payload.data[x];\nx++;\n}\nx=0\nmsg.payload=\n{\n    \"canfd\":msg.payload.canfd,\n    \"ext\":msg.payload.ext,\n    \"rtr\":msg.payload.rtr,\n    \"canid\":msg.payload.canid,\n    \"dlc\":5,\n    \"data\":[buffer[0],buffer[1],buffer[2],buffer[3],buffer[4]]\n}\nreturn msg;\n\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1320,
+        "y": 1280,
+        "wires": [
+            [
+                "878ddb55cbfba12f"
+            ]
+        ]
+    },
+    {
+        "id": "ff7ffd42f8a0c80a",
+        "type": "function",
+        "z": "d2076010266e691e",
+        "name": "switchMode",
+        "func": "switch (msg.payload.Mode)\n{\ncase \"Stop\":\n    \n    msg.payload.binMode=0b11111111\n    return msg;\n    \ncase \"Forward\":\n\n    msg.payload.binMode=0b00000001\n    return msg;  \n    \ncase \"Backward\":\n\n     msg.payload.binMode=0b00000010\n    return msg; \n\ncase \"RightTurnForward\":\n\n     msg.payload.binMode=0b00000011\n    return msg;\n    \ncase \"RightTurnBackward\":\n\n      msg.payload.binMode=0b00000100\n    return msg;\n    \ncase \"LeftTurnForward\":\n\n    msg.payload.binMode=0b00000101\n    return msg;\n    \ncase \"LeftTurnBackward\":\n\n     msg.payload.binMode=0b00000110\n    return msg;\n    \ncase \"ClockwiseRotation\":\n\n    msg.payload.binMode=0b00000111\n    return msg;\n    \ncase \"CounterClockwiseRotation\":\n\n    msg.payload.binMode=0b00001000\n    return msg;\n\n    \n}",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1150,
+        "y": 600,
+        "wires": [
+            [
+                "ead899817251434e"
+            ]
+        ]
+    },
+    {
+        "id": "ead899817251434e",
+        "type": "function",
+        "z": "d2076010266e691e",
+        "name": "calculateSpeed",
+        "func": "// Convert Speed from km/h in cm/s max. value 9.14\nmsg.payload.Speed=Math.round(msg.payload.Speed*1000/36)\nif (msg.payload.Speed > 255)\n{\n    msg.payload.Speed = 255\n}\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1340,
+        "y": 600,
+        "wires": [
+            [
+                "5f62c78599bf213b"
+            ]
+        ]
+    },
+    {
+        "id": "e1259c18c1151d14",
+        "type": "inject",
+        "z": "d2076010266e691e",
+        "name": "Backward",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"Mode\":\"Backward\",\"Speed\":0,\"Angle\":0,\"Radius\":0}",
+        "payloadType": "json",
+        "x": 140,
+        "y": 720,
+        "wires": [
+            [
+                "72f295af932710c5"
+            ]
+        ]
+    },
+    {
+        "id": "67f4151c435f8917",
+        "type": "inject",
+        "z": "d2076010266e691e",
+        "name": "RightTurnForward",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"Mode\":\"RightTurnForward\",\"Speed\":9.85697,\"Angle\":340,\"Radius\":1.25848}",
+        "payloadType": "json",
+        "x": 170,
+        "y": 780,
+        "wires": [
+            [
+                "72f295af932710c5"
+            ]
+        ]
+    },
+    {
+        "id": "dc1371fec7cf2538",
+        "type": "inject",
+        "z": "d2076010266e691e",
+        "name": "RightTurnBackward",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"Mode\":\"RightTurnBackward\",\"Speed\":0,\"Angle\":0,\"Radius\":0}",
+        "payloadType": "json",
+        "x": 170,
+        "y": 840,
+        "wires": [
+            [
+                "72f295af932710c5"
+            ]
+        ]
+    },
+    {
+        "id": "9c8af845381ef642",
+        "type": "inject",
+        "z": "d2076010266e691e",
+        "name": "LeftTurnForward",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"Mode\":\"LeftTurnForward\",\"Speed\":4.87945,\"Angle\":150,\"Radius\":3}",
+        "payloadType": "json",
+        "x": 160,
+        "y": 900,
+        "wires": [
+            [
+                "72f295af932710c5"
+            ]
+        ]
+    },
+    {
+        "id": "844e45e3164ce50c",
+        "type": "inject",
+        "z": "d2076010266e691e",
+        "name": "LeftTurnBackward",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"Mode\":\"LeftTurnBackward\",\"Speed\":0,\"Angle\":0,\"Radius\":0}",
+        "payloadType": "json",
+        "x": 170,
+        "y": 960,
+        "wires": [
+            [
+                "72f295af932710c5"
+            ]
+        ]
+    },
+    {
+        "id": "69b04c470b8770dc",
+        "type": "inject",
+        "z": "d2076010266e691e",
+        "name": "ClockwiseRotation",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"Mode\":\"ClockwiseRotation\",\"Speed\":0,\"Angle\":0,\"Radius\":0}",
+        "payloadType": "json",
+        "x": 170,
+        "y": 1020,
+        "wires": [
+            [
+                "72f295af932710c5"
+            ]
+        ]
+    },
+    {
+        "id": "cdebb0984fbb19c2",
+        "type": "inject",
+        "z": "d2076010266e691e",
+        "name": "CounterClockwiseRotation",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"Mode\":\"CounterClockwiseRotation\",\"Speed\":0,\"Angle\":0,\"Radius\":0}",
+        "payloadType": "json",
+        "x": 190,
+        "y": 1080,
+        "wires": [
+            [
+                "72f295af932710c5"
+            ]
+        ]
+    },
+    {
+        "id": "dccdbedfba9fefc3",
+        "type": "inject",
+        "z": "d2076010266e691e",
+        "name": "Stop",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"Mode\":\"Stop\",\"Speed\":0,\"Angle\":0,\"Radius\":0}",
+        "payloadType": "json",
+        "x": 130,
+        "y": 600,
+        "wires": [
+            [
+                "72f295af932710c5"
+            ]
+        ]
+    },
+    {
+        "id": "399c098c05664748",
+        "type": "debug",
+        "z": "d2076010266e691e",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1890,
+        "y": 680,
+        "wires": []
+    },
+    {
+        "id": "5f62c78599bf213b",
+        "type": "function",
+        "z": "d2076010266e691e",
+        "name": "Angle",
+        "func": "if (msg.payload.Angle > 255)\n{\n    msg.payload.ShiftAngle = 1\n    msg.payload.Angle = msg.payload.Angle-256\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1530,
+        "y": 600,
+        "wires": [
+            [
+                "3833bd0a23d1ad42"
+            ]
+        ]
+    },
+    {
+        "id": "3833bd0a23d1ad42",
+        "type": "function",
+        "z": "d2076010266e691e",
+        "name": "calculateRadius",
+        "func": "//convert radius from m to cm, max. value = 2.55m\n\nmsg.payload.Radius = Math.round(msg.payload.Radius*100)\n\nif(msg.payload.Radius > 255)\n{\n    msg.payload.Radius = 255\n}\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1700,
+        "y": 600,
+        "wires": [
+            [
+                "bdd8a0509a42a633"
+            ]
+        ]
+    },
+    {
+        "id": "78f81452ce40e35b",
+        "type": "function",
+        "z": "d2076010266e691e",
+        "name": "receiveDriveData",
+        "func": "msg.payload=\n{\n    \"canfd\":false,\n    \"ext\":false,\n    \"rtr\":false,\n    \"canid\":1,\n    \"dlc\":5,\n    \"data\":[msg.payload.data[0],msg.payload.data[1],msg.payload.data[2],msg.payload.data[3],msg.payload.data[4]]\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 2210,
+        "y": 600,
+        "wires": [
+            [
+                "67a7a6ae29640778"
+            ]
+        ]
+    },
+    {
+        "id": "7a6ee82c5172bf43",
+        "type": "inject",
+        "z": "58d29239db35f478",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 100,
+        "y": 60,
+        "wires": [
+            [
+                "6848bbddd77340d5"
+            ]
+        ]
+    },
+    {
+        "id": "6580f3eb06b185f9",
+        "type": "debug",
+        "z": "58d29239db35f478",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1770,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "6848bbddd77340d5",
+        "type": "function",
+        "z": "58d29239db35f478",
+        "name": "",
+        "func": "msg.payload=\n{\n    \"canfd\":false,\n    \"ext\":false,\n    \"rtr\":false,\n    \"canid\":4,\n    \"dlc\":5,\n    \"data\":[1,2,3,4,5]\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 320,
+        "y": 60,
+        "wires": [
+            [
+                "5a7c1fa1e7baf462"
+            ]
+        ]
+    },
+    {
+        "id": "5a7c1fa1e7baf462",
+        "type": "socketcan-in",
+        "z": "58d29239db35f478",
+        "name": "socketcan-in",
+        "config": "741b416bb34222f3",
+        "x": 590,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "ebdf8292ba882b2a",
+        "type": "socketcan-out",
+        "z": "58d29239db35f478",
+        "name": "socketcan-out",
+        "config": "741b416bb34222f3",
+        "x": 790,
+        "y": 60,
+        "wires": [
+            [
+                "4341aedc55b58e8c"
+            ]
+        ]
+    },
+    {
+        "id": "f9f2cf3f875d0823",
+        "type": "buffer-maker",
+        "z": "58d29239db35f478",
+        "name": "CanID-Filter",
+        "specification": "spec",
+        "specificationType": "ui",
+        "items": [
+            {
+                "name": "item1",
+                "type": "uint8",
+                "length": 1,
+                "dataType": "msg",
+                "data": "payload.canid"
+            }
+        ],
+        "swap1": "",
+        "swap2": "",
+        "swap3": "",
+        "swap1Type": "swap",
+        "swap2Type": "swap",
+        "swap3Type": "swap",
+        "msgProperty": "payload",
+        "msgPropertyType": "str",
+        "x": 1350,
+        "y": 60,
+        "wires": [
+            [
+                "6580f3eb06b185f9"
+            ]
+        ]
+    },
+    {
+        "id": "037d420644049e8f",
+        "type": "buffer-maker",
+        "z": "58d29239db35f478",
+        "name": "Can_Data",
+        "specification": "spec",
+        "specificationType": "ui",
+        "items": [
+            {
+                "name": "item1",
+                "type": "uint8",
+                "length": 5,
+                "dataType": "msg",
+                "data": "payload.data"
+            }
+        ],
+        "swap1": "",
+        "swap2": "",
+        "swap3": "",
+        "swap1Type": "swap",
+        "swap2Type": "swap",
+        "swap3Type": "swap",
+        "msgProperty": "payload",
+        "msgPropertyType": "str",
+        "x": 1340,
+        "y": 120,
+        "wires": [
+            [
+                "6580f3eb06b185f9"
+            ]
+        ]
+    },
+    {
+        "id": "1522fe0eb22014be",
+        "type": "inject",
+        "z": "58d29239db35f478",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 100,
+        "y": 120,
+        "wires": [
+            [
+                "5a7c1fa1e7baf462"
+            ]
+        ]
+    },
+    {
+        "id": "e05f1b8c31bca3e0",
+        "type": "inject",
+        "z": "58d29239db35f478",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 100,
+        "y": 180,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "4341aedc55b58e8c",
+        "type": "function",
+        "z": "58d29239db35f478",
+        "name": "",
+        "func": "if (msg.payload.canid == (4 || 5 || 6))\n{\n   return msg; \n}\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1020,
+        "y": 60,
+        "wires": [
+            [
+                "f9f2cf3f875d0823",
+                "037d420644049e8f"
+            ]
         ]
     }
 ]
