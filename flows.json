@@ -47,6 +47,32 @@
         "sessionExpiry": ""
     },
     {
+        "id": "22f91514a3ba7ab9",
+        "type": "mqtt-broker",
+        "name": "",
+        "broker": "192.168.178.160",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "sessionExpiry": ""
+    },
+    {
         "id": "72f295af932710c5",
         "type": "mqtt out",
         "z": "d2076010266e691e",
@@ -59,7 +85,7 @@
         "userProps": "",
         "correl": "",
         "expiry": "",
-        "broker": "cf97968c7bc02d9e",
+        "broker": "22f91514a3ba7ab9",
         "x": 600,
         "y": 240,
         "wires": []
@@ -72,7 +98,7 @@
         "topic": "MowRo",
         "qos": "2",
         "datatype": "utf8",
-        "broker": "cf97968c7bc02d9e",
+        "broker": "22f91514a3ba7ab9",
         "nl": false,
         "rap": true,
         "rh": 0,
@@ -204,7 +230,7 @@
         "topic": "Feedback",
         "qos": "2",
         "datatype": "auto",
-        "broker": "cf97968c7bc02d9e",
+        "broker": "22f91514a3ba7ab9",
         "nl": false,
         "rap": true,
         "rh": 0,
@@ -559,7 +585,7 @@
         "userProps": "",
         "correl": "",
         "expiry": "",
-        "broker": "cf97968c7bc02d9e",
+        "broker": "22f91514a3ba7ab9",
         "x": 1880,
         "y": 240,
         "wires": []
@@ -651,7 +677,7 @@
         "userProps": "",
         "correl": "",
         "expiry": "",
-        "broker": "cf97968c7bc02d9e",
+        "broker": "22f91514a3ba7ab9",
         "x": 2420,
         "y": 220,
         "wires": []
@@ -702,7 +728,7 @@
         "userProps": "",
         "correl": "",
         "expiry": "",
-        "broker": "cf97968c7bc02d9e",
+        "broker": "22f91514a3ba7ab9",
         "x": 1360,
         "y": 280,
         "wires": []
@@ -774,7 +800,8 @@
         "y": 180,
         "wires": [
             [
-                "3de04da96d491c54"
+                "3de04da96d491c54",
+                "80a9ec441b04155d"
             ]
         ]
     },
@@ -930,9 +957,26 @@
         "userProps": "",
         "correl": "",
         "expiry": "",
-        "broker": "cf97968c7bc02d9e",
+        "broker": "22f91514a3ba7ab9",
         "x": 3660,
         "y": 60,
+        "wires": []
+    },
+    {
+        "id": "80a9ec441b04155d",
+        "type": "debug",
+        "z": "d2076010266e691e",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 3650,
+        "y": 280,
         "wires": []
     },
     {
