@@ -21,32 +21,6 @@
         "interface": "can0"
     },
     {
-        "id": "cf97968c7bc02d9e",
-        "type": "mqtt-broker",
-        "name": "",
-        "broker": "192.168.178.160",
-        "port": "1883",
-        "clientid": "",
-        "autoConnect": true,
-        "usetls": false,
-        "protocolVersion": "4",
-        "keepalive": "60",
-        "cleansession": true,
-        "birthTopic": "",
-        "birthQos": "0",
-        "birthPayload": "",
-        "birthMsg": {},
-        "closeTopic": "",
-        "closeQos": "0",
-        "closePayload": "",
-        "closeMsg": {},
-        "willTopic": "",
-        "willQos": "0",
-        "willPayload": "",
-        "willMsg": {},
-        "sessionExpiry": ""
-    },
-    {
         "id": "22f91514a3ba7ab9",
         "type": "mqtt-broker",
         "name": "",
@@ -227,7 +201,7 @@
         "type": "mqtt in",
         "z": "d2076010266e691e",
         "name": "",
-        "topic": "Feedback",
+        "topic": "NewFeedback",
         "qos": "2",
         "datatype": "auto",
         "broker": "22f91514a3ba7ab9",
@@ -235,7 +209,7 @@
         "rap": true,
         "rh": 0,
         "inputs": 0,
-        "x": 100,
+        "x": 110,
         "y": 820,
         "wires": [
             [
@@ -577,7 +551,7 @@
         "type": "mqtt out",
         "z": "d2076010266e691e",
         "name": "",
-        "topic": "Feedback",
+        "topic": "NewFeedback",
         "qos": "2",
         "retain": "",
         "respTopic": "",
@@ -586,7 +560,7 @@
         "correl": "",
         "expiry": "",
         "broker": "22f91514a3ba7ab9",
-        "x": 1880,
+        "x": 1900,
         "y": 240,
         "wires": []
     },
@@ -624,10 +598,11 @@
         "tosidebar": true,
         "console": false,
         "tostatus": false,
-        "complete": "false",
+        "complete": "payload",
+        "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 350,
+        "x": 390,
         "y": 820,
         "wires": []
     },
@@ -669,7 +644,7 @@
         "type": "mqtt out",
         "z": "d2076010266e691e",
         "name": "",
-        "topic": "Feedback",
+        "topic": "NewFeedback",
         "qos": "2",
         "retain": "",
         "respTopic": "",
@@ -678,7 +653,7 @@
         "correl": "",
         "expiry": "",
         "broker": "22f91514a3ba7ab9",
-        "x": 2420,
+        "x": 2440,
         "y": 220,
         "wires": []
     },
@@ -720,7 +695,7 @@
         "type": "mqtt out",
         "z": "d2076010266e691e",
         "name": "",
-        "topic": "Feedback",
+        "topic": "NewFeedback",
         "qos": "2",
         "retain": "",
         "respTopic": "",
@@ -729,7 +704,7 @@
         "correl": "",
         "expiry": "",
         "broker": "22f91514a3ba7ab9",
-        "x": 1360,
+        "x": 1380,
         "y": 280,
         "wires": []
     },
@@ -749,25 +724,6 @@
         "wires": [
             [
                 "8258439bf7759f91"
-            ]
-        ]
-    },
-    {
-        "id": "842fc9886fcfd334",
-        "type": "function",
-        "z": "d2076010266e691e",
-        "name": "",
-        "func": "if(flow.get(\"FeedbackDriveMode\") != msg.payload.data[0])\n{\n    msg.payload = \"Zurueckgegebener DriveMode '\" + flow.get(\"FeedbackDriveMode\").toString() + \"' stimmt nicht mit dem geforderten ueberein!\"\n    return msg;\n}\nif(flow.get(\"FeedbackDriveSpeed\") != msg.payload.data[1])\n{\n    msg.payload = \"Zurueckgegebene Geschwindigkeit '\" + flow.get(\"FeedbackDriveSpeed\").toString() + \"' stimmt nicht mit der geforderten ueberein!\"\n    return msg;\n}\nif(flow.get(\"FeedbackDriveShiftedAngle\") != msg.payload.data[2] || flow.get(\"FeedbackDriveAngle\") != msg.payload.data[3])\n{\n    msg.payload = \"Zurueckgegebener Winkel '\" + parseFloat((flow.get(\"FeedbackDriveShiftedAngle\")+flow.get(\"FeedbackDriveAngle\"))).toString() + \"' stimmt nicht mit dem geforderten ueberein!\"\n    return msg;\n}\nif(flow.get(\"FeedbackDriveRadius\") != msg.payload.data[4])\n{\n    msg.payload = \"Zurueckgegebener Radius '\" + flow.get(\"FeedbackDriveRadius\").toString() + \"' stimmt nicht mit dem geforderten ueberein!\"\n    return msg;\n}",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 3460,
-        "y": 60,
-        "wires": [
-            [
-                "7ab94a45d27316ae"
             ]
         ]
     },
@@ -800,8 +756,7 @@
         "y": 180,
         "wires": [
             [
-                "3de04da96d491c54",
-                "80a9ec441b04155d"
+                "3de04da96d491c54"
             ]
         ]
     },
@@ -809,17 +764,19 @@
         "id": "3de04da96d491c54",
         "type": "function",
         "z": "d2076010266e691e",
-        "name": "FilterCANID_11",
-        "func": "if (msg.payload.canid == 11)\n{\n    flow.set(\"FeedbackDriveMode\", msg.payload.data[0])\n    flow.set(\"FeedbackDriveSpeed\", msg.payload.data[1])\n    flow.set(\"FeedbackDriveShiftAngle\", msg.payload.data[2])\n    flow.set(\"FeedbackDriveAngle\", msg.payload.data[3])\n    flow.set(\"FeedbackDriveRadius\", msg.payload.data[4])\n    return msg;\n}\n",
+        "name": "FilterCANID_11_FillBuffer",
+        "func": "if (msg.payload.canid == 11)\n{\n    flow.set(\"FeedbackDriveMode\", msg.payload.data[0])\n    flow.set(\"FeedbackDriveSpeed\", msg.payload.data[1])\n    flow.set(\"FeedbackDriveShiftedAngle\", msg.payload.data[2])\n    flow.set(\"FeedbackDriveAngle\", msg.payload.data[3])\n    flow.set(\"FeedbackDriveRadius\", msg.payload.data[4])\n    return msg;\n}\n",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 3880,
+        "x": 3790,
         "y": 180,
         "wires": [
-            []
+            [
+                "4778da620dbe716c"
+            ]
         ]
     },
     {
@@ -839,11 +796,11 @@
         "drop": false,
         "allowrate": false,
         "outputs": 1,
-        "x": 3280,
+        "x": 3240,
         "y": 60,
         "wires": [
             [
-                "842fc9886fcfd334"
+                "54ea0e52e20c55a1"
             ]
         ]
     },
@@ -862,14 +819,12 @@
         "once": true,
         "onceDelay": "5.5",
         "topic": "",
-        "payload": "{\"canfd\":false,\"ext\":false,\"rtr\":false,\"canid\":11,\"dlc\":5,\"data\":[255,0,0,0,0]}",
+        "payload": "{\"canfd\":false,\"ext\":false,\"rtr\":false,\"canid\":11,\"dlc\":5,\"data\":[255,0,2,8,0]}",
         "payloadType": "json",
         "x": 3650,
         "y": 140,
         "wires": [
-            [
-                "3de04da96d491c54"
-            ]
+            []
         ]
     },
     {
@@ -877,34 +832,17 @@
         "type": "mqtt out",
         "z": "d2076010266e691e",
         "name": "",
-        "topic": "Feedback",
-        "qos": "0",
-        "retain": "",
+        "topic": "NewFeedback",
+        "qos": "2",
+        "retain": "false",
         "respTopic": "",
         "contentType": "",
         "userProps": "",
         "correl": "",
         "expiry": "",
         "broker": "22f91514a3ba7ab9",
-        "x": 3660,
+        "x": 3740,
         "y": 60,
-        "wires": []
-    },
-    {
-        "id": "80a9ec441b04155d",
-        "type": "debug",
-        "z": "d2076010266e691e",
-        "name": "",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "true",
-        "targetType": "full",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 3650,
-        "y": 280,
         "wires": []
     },
     {
@@ -991,9 +929,7 @@
         "x": 790,
         "y": 60,
         "wires": [
-            [
-                "4341aedc55b58e8c"
-            ]
+            []
         ]
     },
     {
@@ -1133,6 +1069,133 @@
             [
                 "f9f2cf3f875d0823",
                 "037d420644049e8f"
+            ]
+        ]
+    },
+    {
+        "id": "4778da620dbe716c",
+        "type": "debug",
+        "z": "d2076010266e691e",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 4050,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "54ea0e52e20c55a1",
+        "type": "function",
+        "z": "d2076010266e691e",
+        "name": "",
+        "func": "if(flow.get(\"FeedbackDriveMode\") != flow.get(\"InputMode\"))\n{\n    msg.payload = \"Zurueckgegebener DriveMode '\" + flow.get(\"FeedbackDriveMode\").toString() + \"' stimmt nicht mit dem geforderten ueberein!\"\n    return msg;\n}\nif(flow.get(\"FeedbackDriveSpeed\") != flow.get(\"InputSpeed\"))\n{\n    msg.payload = \"Zurueckgegebene Geschwindigkeit '\" + flow.get(\"FeedbackDriveSpeed\").toString() + \"' stimmt nicht mit der geforderten ueberein!\"\n    return msg;\n}\nif(flow.get(\"FeedbackDriveShiftedAngle\") != flow.get(\"InputShiftedAngle\") || flow.get(\"FeedbackDriveAngle\") != flow.get(\"InputAngle\"))\n{\n    msg.payload = \"Zurueckgegebener Winkel '\" + (flow.get(\"FeedbackDriveShiftedAngle\")+flow.get(\"FeedbackDriveAngle\")).toString() + \"' stimmt nicht mit dem geforderten ueberein!\"\n    return msg;\n}\nif(flow.get(\"FeedbackDriveRadius\") != flow.get(\"InputRadius\"))\n{\n    msg.payload = \"Zurueckgegebener Radius '\" + flow.get(\"FeedbackDriveRadius\").toString() + \"' stimmt nicht mit dem geforderten ueberein!\"\n    return msg;\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 3480,
+        "y": 60,
+        "wires": [
+            [
+                "7ab94a45d27316ae"
+            ]
+        ]
+    },
+    {
+        "id": "2e7f87854b4a0a1d",
+        "type": "function",
+        "z": "d2076010266e691e",
+        "name": "FilterCANID_11",
+        "func": "if (msg.payload.canid == 11)\n{\n    msg.payload = msg.payload.data.toString()\n    return msg;\n}\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 3900,
+        "y": 280,
+        "wires": [
+            [
+                "d4a7adb7e534dc6d"
+            ]
+        ]
+    },
+    {
+        "id": "25df5292931aae6a",
+        "type": "socketcan-out",
+        "z": "d2076010266e691e",
+        "name": "socketcan-out",
+        "config": "741b416bb34222f3",
+        "x": 3480,
+        "y": 280,
+        "wires": [
+            [
+                "2e7f87854b4a0a1d",
+                "7b6728d4f1334eed"
+            ]
+        ]
+    },
+    {
+        "id": "d4a7adb7e534dc6d",
+        "type": "mqtt out",
+        "z": "d2076010266e691e",
+        "name": "",
+        "topic": "DriveData",
+        "qos": "2",
+        "retain": "false",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "22f91514a3ba7ab9",
+        "x": 4100,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "24342c0c0535f846",
+        "type": "mqtt in",
+        "z": "d2076010266e691e",
+        "name": "",
+        "topic": "DriveData",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "22f91514a3ba7ab9",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 100,
+        "y": 880,
+        "wires": [
+            [
+                "cc029c6b5bf83e99"
+            ]
+        ]
+    },
+    {
+        "id": "7b6728d4f1334eed",
+        "type": "function",
+        "z": "d2076010266e691e",
+        "name": "switchMode",
+        "func": "if(msg.payload.canid == 11)\n{\n    switch (msg.payload.data[0])\n    {\n    case 0b11111111:\n        \n        msg.payload.data[0]=\"Stop\"\n        return msg;\n        \n    case 0b00000001:\n    \n        msg.payload.data[0]=\"Forward\"\n        return msg;  \n        \n    case 0b00000010:\n    \n         msg.payload.data[0]=\"Backward\"\n        return msg; \n    \n    case 0b00000011:\n    \n         msg.payload.data[0]=\"RightTurnForward\"\n        return msg;\n        \n    case 0b00000100:\n    \n          msg.payload.data[0]=\"RightTurnBackward\"\n        return msg;\n        \n    case 0b00000101:\n    \n        msg.payload.data[0]=\"LeftTurnForward\"\n        return msg;\n        \n    case 0b00000110:\n    \n         msg.payload.data[0]=\"LeftTurnBackward\"\n        return msg;\n        \n    case 0b00000111:\n    \n        msg.payload.data[0]=\"ClockwiseRotation\"\n        return msg;\n        \n    case 0b00001000:\n    \n        msg.payload.data[0]=\"CounterClockwiseRotation\"\n        return msg;\n    \n    default:\n        msg.payload = \"Modeumwandlung fehlgeschlagen. Zurueckgegebener Wert vom Bus \" + msg.payload.data[0]\n        return msg;\n    }\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 3690,
+        "y": 280,
+        "wires": [
+            [
+                "2e7f87854b4a0a1d"
             ]
         ]
     }
