@@ -24,7 +24,7 @@
         "id": "cf97968c7bc02d9e",
         "type": "mqtt-broker",
         "name": "",
-        "broker": "raspberrypi.local",
+        "broker": "192.168.178.160",
         "port": "1883",
         "clientid": "",
         "autoConnect": true,
