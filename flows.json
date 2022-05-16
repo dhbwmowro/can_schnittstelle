@@ -16,6 +16,14 @@
         "env": []
     },
     {
+        "id": "23feec37c6c261df",
+        "type": "tab",
+        "label": "Sensoren",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
         "id": "741b416bb34222f3",
         "type": "socketcan-config",
         "interface": "can0"
@@ -580,7 +588,7 @@
         "once": false,
         "onceDelay": 0.1,
         "topic": "",
-        "payload": "{\"Mode\":\"top\",\"Speed\":0,\"Angle\":2,\"Radius\":2}",
+        "payload": "{\"Mode\":\"Stopp\",\"Speed\":\"w\",\"Angle\":2,\"Radius\":2}",
         "payloadType": "json",
         "x": 140,
         "y": 180,
@@ -938,7 +946,7 @@
         "type": "function",
         "z": "d2076010266e691e",
         "name": "FilterCANID_11",
-        "func": "if (msg.payload.canid == 11)\n{\n    msg.payload = msg.payload.data.toString()\n    return msg;\n}\n",
+        "func": "if (msg.payload.canid == 11)\n{\n    msg.payload = \"003:\" + msg.payload.data.toString()\n    return msg;\n}\n",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -1321,6 +1329,258 @@
             [
                 "f9f2cf3f875d0823",
                 "037d420644049e8f"
+            ]
+        ]
+    },
+    {
+        "id": "f52d91a5f9cd9b3e",
+        "type": "socketcan-out",
+        "z": "23feec37c6c261df",
+        "name": "socketcan-out",
+        "config": "741b416bb34222f3",
+        "x": 150,
+        "y": 40,
+        "wires": [
+            [
+                "77fb12d7cd70bb36"
+            ]
+        ]
+    },
+    {
+        "id": "77fb12d7cd70bb36",
+        "type": "function",
+        "z": "23feec37c6c261df",
+        "name": "switchMode",
+        "func": "if(msg.payload.canid == 9)\n{\n    msg.payload = \"001:\" + msg.payload.data\n    return msg\n}\nif(msg.payload.canid == 10)\n{\n    msg.payload = \"002:\" + msg.payload.data\n    return msg\n}\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 350,
+        "y": 40,
+        "wires": [
+            [
+                "28ead4a8a5871023"
+            ]
+        ]
+    },
+    {
+        "id": "28ead4a8a5871023",
+        "type": "mqtt out",
+        "z": "23feec37c6c261df",
+        "name": "SensorData",
+        "topic": "SensorData",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "22f91514a3ba7ab9",
+        "x": 550,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "21caad40d5def8d9",
+        "type": "mqtt in",
+        "z": "23feec37c6c261df",
+        "name": "SensorData",
+        "topic": "SensorData",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "22f91514a3ba7ab9",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 770,
+        "y": 40,
+        "wires": [
+            [
+                "2234d3dd67d9d56b"
+            ]
+        ]
+    },
+    {
+        "id": "2234d3dd67d9d56b",
+        "type": "debug",
+        "z": "23feec37c6c261df",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 950,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "7d91ae6179051815",
+        "type": "function",
+        "z": "23feec37c6c261df",
+        "name": "receiveDriveData",
+        "func": "msg.payload=\n{\n    \"canfd\":false,\n    \"ext\":false,\n    \"rtr\":false,\n    \"canid\":9,\n    \"dlc\":5,\n    \"data\":[6]\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 450,
+        "y": 120,
+        "wires": [
+            [
+                "c56f4aabc61894ed"
+            ]
+        ]
+    },
+    {
+        "id": "c56f4aabc61894ed",
+        "type": "socketcan-in",
+        "z": "23feec37c6c261df",
+        "name": "socketcan-in",
+        "config": "741b416bb34222f3",
+        "x": 790,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "c77c5884bd8cec5a",
+        "type": "inject",
+        "z": "23feec37c6c261df",
+        "name": "Stop",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": "5",
+        "topic": "",
+        "payload": "2",
+        "payloadType": "num",
+        "x": 170,
+        "y": 120,
+        "wires": [
+            [
+                "7d91ae6179051815"
+            ]
+        ]
+    },
+    {
+        "id": "5e7e6078afb7da54",
+        "type": "function",
+        "z": "23feec37c6c261df",
+        "name": "receiveDriveData",
+        "func": "msg.payload=\n{\n    \"canfd\":false,\n    \"ext\":false,\n    \"rtr\":false,\n    \"canid\":10,\n    \"dlc\":5,\n    \"data\":[msg.payload.data[0],msg.payload.data[1],msg.payload.data[2]]\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 910,
+        "y": 220,
+        "wires": [
+            [
+                "481bfe9f7c184138"
+            ]
+        ]
+    },
+    {
+        "id": "481bfe9f7c184138",
+        "type": "socketcan-in",
+        "z": "23feec37c6c261df",
+        "name": "socketcan-in",
+        "config": "741b416bb34222f3",
+        "x": 1170,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "4ba63cd3637c1fed",
+        "type": "buffer-maker",
+        "z": "23feec37c6c261df",
+        "name": "",
+        "specification": "spec",
+        "specificationType": "ui",
+        "items": [
+            {
+                "name": "humidity",
+                "type": "uint8",
+                "length": 1,
+                "dataType": "msg",
+                "data": "payload.humidity"
+            },
+            {
+                "name": "temperature",
+                "type": "int8",
+                "length": 1,
+                "dataType": "msg",
+                "data": "payload.temperature"
+            },
+            {
+                "name": "rain",
+                "type": "byte",
+                "length": 1,
+                "dataType": "msg",
+                "data": "payload.rain"
+            }
+        ],
+        "swap1": "",
+        "swap2": "",
+        "swap3": "",
+        "swap1Type": "swap",
+        "swap2Type": "swap",
+        "swap3Type": "swap",
+        "msgProperty": "payload.data",
+        "msgPropertyType": "str",
+        "x": 490,
+        "y": 220,
+        "wires": [
+            [
+                "5e7e6078afb7da54"
+            ]
+        ]
+    },
+    {
+        "id": "2bd9cc6fd95c014c",
+        "type": "inject",
+        "z": "23feec37c6c261df",
+        "name": "Umweltdaten",
+        "props": [
+            {
+                "p": "payload.humidity",
+                "v": "60",
+                "vt": "num"
+            },
+            {
+                "p": "payload.temperature",
+                "v": "20",
+                "vt": "num"
+            },
+            {
+                "p": "payload.rain",
+                "v": "true",
+                "vt": "bool"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": "5",
+        "topic": "",
+        "x": 150,
+        "y": 220,
+        "wires": [
+            [
+                "4ba63cd3637c1fed"
             ]
         ]
     }
