@@ -24,11 +24,6 @@
         "env": []
     },
     {
-        "id": "741b416bb34222f3",
-        "type": "socketcan-config",
-        "interface": "can0"
-    },
-    {
         "id": "22f91514a3ba7ab9",
         "type": "mqtt-broker",
         "name": "",
@@ -55,6 +50,37 @@
         "sessionExpiry": ""
     },
     {
+        "id": "421e6af122eb7d8d",
+        "type": "mqtt-broker",
+        "name": "Seeblick",
+        "broker": "192.168.178.131",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "sessionExpiry": ""
+    },
+    {
+        "id": "98a6cce324aeb5e3",
+        "type": "socketcan-config",
+        "interface": "can0"
+    },
+    {
         "id": "72f295af932710c5",
         "type": "mqtt out",
         "z": "d2076010266e691e",
@@ -67,7 +93,7 @@
         "userProps": "",
         "correl": "",
         "expiry": "",
-        "broker": "22f91514a3ba7ab9",
+        "broker": "421e6af122eb7d8d",
         "x": 600,
         "y": 240,
         "wires": []
@@ -80,7 +106,7 @@
         "topic": "MowRo",
         "qos": "2",
         "datatype": "utf8",
-        "broker": "22f91514a3ba7ab9",
+        "broker": "421e6af122eb7d8d",
         "nl": false,
         "rap": true,
         "rh": 0,
@@ -118,16 +144,6 @@
                 "72f295af932710c5"
             ]
         ]
-    },
-    {
-        "id": "67a7a6ae29640778",
-        "type": "socketcan-in",
-        "z": "d2076010266e691e",
-        "name": "socketcan-in",
-        "config": "741b416bb34222f3",
-        "x": 3190,
-        "y": 220,
-        "wires": []
     },
     {
         "id": "f1dd287a4485b272",
@@ -213,7 +229,7 @@
         "topic": "NewerFeedback",
         "qos": "2",
         "datatype": "auto",
-        "broker": "22f91514a3ba7ab9",
+        "broker": "421e6af122eb7d8d",
         "nl": false,
         "rap": true,
         "rh": 0,
@@ -518,7 +534,7 @@
         "wires": [
             [
                 "ca33282c2dc2a957",
-                "67a7a6ae29640778"
+                "64abc52502efb7d2"
             ]
         ]
     },
@@ -568,7 +584,7 @@
         "userProps": "",
         "correl": "",
         "expiry": "",
-        "broker": "22f91514a3ba7ab9",
+        "broker": "421e6af122eb7d8d",
         "x": 2060,
         "y": 280,
         "wires": []
@@ -661,7 +677,7 @@
         "userProps": "",
         "correl": "",
         "expiry": "",
-        "broker": "22f91514a3ba7ab9",
+        "broker": "421e6af122eb7d8d",
         "x": 2600,
         "y": 260,
         "wires": []
@@ -710,7 +726,7 @@
         "userProps": "",
         "correl": "",
         "expiry": "",
-        "broker": "22f91514a3ba7ab9",
+        "broker": "421e6af122eb7d8d",
         "x": 1540,
         "y": 180,
         "wires": []
@@ -754,20 +770,6 @@
         ]
     },
     {
-        "id": "8ce13fc76e21917f",
-        "type": "socketcan-out",
-        "z": "d2076010266e691e",
-        "name": "socketcan-out",
-        "config": "741b416bb34222f3",
-        "x": 3640,
-        "y": 180,
-        "wires": [
-            [
-                "3de04da96d491c54"
-            ]
-        ]
-    },
-    {
         "id": "3de04da96d491c54",
         "type": "function",
         "z": "d2076010266e691e",
@@ -778,10 +780,12 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 4810,
-        "y": 180,
+        "x": 4250,
+        "y": 140,
         "wires": [
-            []
+            [
+                "06bb30387c1867ee"
+            ]
         ]
     },
     {
@@ -829,7 +833,9 @@
         "x": 3850,
         "y": 140,
         "wires": [
-            []
+            [
+                "3de04da96d491c54"
+            ]
         ]
     },
     {
@@ -845,7 +851,7 @@
         "userProps": "",
         "correl": "",
         "expiry": "",
-        "broker": "22f91514a3ba7ab9",
+        "broker": "421e6af122eb7d8d",
         "x": 4840,
         "y": 60,
         "wires": []
@@ -889,20 +895,6 @@
         ]
     },
     {
-        "id": "25df5292931aae6a",
-        "type": "socketcan-out",
-        "z": "d2076010266e691e",
-        "name": "socketcan-out",
-        "config": "741b416bb34222f3",
-        "x": 3640,
-        "y": 280,
-        "wires": [
-            [
-                "7b6728d4f1334eed"
-            ]
-        ]
-    },
-    {
         "id": "d4a7adb7e534dc6d",
         "type": "mqtt out",
         "z": "d2076010266e691e",
@@ -915,7 +907,7 @@
         "userProps": "",
         "correl": "",
         "expiry": "",
-        "broker": "22f91514a3ba7ab9",
+        "broker": "421e6af122eb7d8d",
         "x": 4840,
         "y": 280,
         "wires": []
@@ -928,7 +920,7 @@
         "topic": "NewerDriveData",
         "qos": "2",
         "datatype": "auto",
-        "broker": "22f91514a3ba7ab9",
+        "broker": "421e6af122eb7d8d",
         "nl": false,
         "rap": true,
         "rh": 0,
@@ -1034,6 +1026,40 @@
         "wires": []
     },
     {
+        "id": "64abc52502efb7d2",
+        "type": "socketcan-in",
+        "z": "d2076010266e691e",
+        "name": "socketcan-in",
+        "config": "98a6cce324aeb5e3",
+        "x": 3190,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "654cb07db4907665",
+        "type": "socketcan-out",
+        "z": "d2076010266e691e",
+        "name": "socketcan-out",
+        "config": "98a6cce324aeb5e3",
+        "x": 3570,
+        "y": 280,
+        "wires": [
+            [
+                "7b6728d4f1334eed"
+            ]
+        ]
+    },
+    {
+        "id": "06bb30387c1867ee",
+        "type": "socketcan-in",
+        "z": "d2076010266e691e",
+        "name": "socketcan-in",
+        "config": "98a6cce324aeb5e3",
+        "x": 4570,
+        "y": 140,
+        "wires": []
+    },
+    {
         "id": "7a6ee82c5172bf43",
         "type": "inject",
         "z": "58d29239db35f478",
@@ -1091,30 +1117,6 @@
         "finalize": "",
         "libs": [],
         "x": 320,
-        "y": 60,
-        "wires": [
-            [
-                "5a7c1fa1e7baf462"
-            ]
-        ]
-    },
-    {
-        "id": "5a7c1fa1e7baf462",
-        "type": "socketcan-in",
-        "z": "58d29239db35f478",
-        "name": "socketcan-in",
-        "config": "741b416bb34222f3",
-        "x": 590,
-        "y": 60,
-        "wires": []
-    },
-    {
-        "id": "ebdf8292ba882b2a",
-        "type": "socketcan-out",
-        "z": "58d29239db35f478",
-        "name": "socketcan-out",
-        "config": "741b416bb34222f3",
-        "x": 790,
         "y": 60,
         "wires": [
             []
@@ -1208,9 +1210,7 @@
         "x": 100,
         "y": 120,
         "wires": [
-            [
-                "5a7c1fa1e7baf462"
-            ]
+            []
         ]
     },
     {
@@ -1261,20 +1261,6 @@
         ]
     },
     {
-        "id": "f52d91a5f9cd9b3e",
-        "type": "socketcan-out",
-        "z": "23feec37c6c261df",
-        "name": "socketcan-out",
-        "config": "741b416bb34222f3",
-        "x": 150,
-        "y": 40,
-        "wires": [
-            [
-                "77fb12d7cd70bb36"
-            ]
-        ]
-    },
-    {
         "id": "77fb12d7cd70bb36",
         "type": "function",
         "z": "23feec37c6c261df",
@@ -1306,7 +1292,7 @@
         "userProps": "",
         "correl": "",
         "expiry": "",
-        "broker": "22f91514a3ba7ab9",
+        "broker": "421e6af122eb7d8d",
         "x": 550,
         "y": 40,
         "wires": []
@@ -1319,7 +1305,7 @@
         "topic": "SensorData",
         "qos": "2",
         "datatype": "auto",
-        "broker": "22f91514a3ba7ab9",
+        "broker": "421e6af122eb7d8d",
         "nl": false,
         "rap": true,
         "rh": 0,
@@ -1363,19 +1349,9 @@
         "y": 120,
         "wires": [
             [
-                "c56f4aabc61894ed"
+                "53a57fb91b03381e"
             ]
         ]
-    },
-    {
-        "id": "c56f4aabc61894ed",
-        "type": "socketcan-in",
-        "z": "23feec37c6c261df",
-        "name": "socketcan-in",
-        "config": "741b416bb34222f3",
-        "x": 790,
-        "y": 120,
-        "wires": []
     },
     {
         "id": "c77c5884bd8cec5a",
@@ -1417,19 +1393,9 @@
         "y": 220,
         "wires": [
             [
-                "481bfe9f7c184138"
+                "72b130581e712c6b"
             ]
         ]
-    },
-    {
-        "id": "481bfe9f7c184138",
-        "type": "socketcan-in",
-        "z": "23feec37c6c261df",
-        "name": "socketcan-in",
-        "config": "741b416bb34222f3",
-        "x": 1170,
-        "y": 220,
-        "wires": []
     },
     {
         "id": "4ba63cd3637c1fed",
@@ -1511,5 +1477,39 @@
                 "4ba63cd3637c1fed"
             ]
         ]
+    },
+    {
+        "id": "4d7c2ce9dc864e0b",
+        "type": "socketcan-out",
+        "z": "23feec37c6c261df",
+        "name": "socketcan-out",
+        "config": "98a6cce324aeb5e3",
+        "x": 150,
+        "y": 40,
+        "wires": [
+            [
+                "77fb12d7cd70bb36"
+            ]
+        ]
+    },
+    {
+        "id": "53a57fb91b03381e",
+        "type": "socketcan-in",
+        "z": "23feec37c6c261df",
+        "name": "socketcan-in",
+        "config": "98a6cce324aeb5e3",
+        "x": 690,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "72b130581e712c6b",
+        "type": "socketcan-in",
+        "z": "23feec37c6c261df",
+        "name": "socketcan-in",
+        "config": "98a6cce324aeb5e3",
+        "x": 1130,
+        "y": 220,
+        "wires": []
     }
 ]
