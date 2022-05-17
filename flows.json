@@ -24,11 +24,6 @@
         "env": []
     },
     {
-        "id": "741b416bb34222f3",
-        "type": "socketcan-config",
-        "interface": "can0"
-    },
-    {
         "id": "22f91514a3ba7ab9",
         "type": "mqtt-broker",
         "name": "",
@@ -55,6 +50,37 @@
         "sessionExpiry": ""
     },
     {
+        "id": "421e6af122eb7d8d",
+        "type": "mqtt-broker",
+        "name": "Seeblick",
+        "broker": "192.168.178.131",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "sessionExpiry": ""
+    },
+    {
+        "id": "98a6cce324aeb5e3",
+        "type": "socketcan-config",
+        "interface": "can0"
+    },
+    {
         "id": "72f295af932710c5",
         "type": "mqtt out",
         "z": "d2076010266e691e",
@@ -67,7 +93,7 @@
         "userProps": "",
         "correl": "",
         "expiry": "",
-        "broker": "22f91514a3ba7ab9",
+        "broker": "421e6af122eb7d8d",
         "x": 600,
         "y": 240,
         "wires": []
@@ -80,7 +106,7 @@
         "topic": "MowRo",
         "qos": "2",
         "datatype": "utf8",
-        "broker": "22f91514a3ba7ab9",
+        "broker": "421e6af122eb7d8d",
         "nl": false,
         "rap": true,
         "rh": 0,
@@ -118,16 +144,6 @@
                 "72f295af932710c5"
             ]
         ]
-    },
-    {
-        "id": "67a7a6ae29640778",
-        "type": "socketcan-in",
-        "z": "d2076010266e691e",
-        "name": "socketcan-in",
-        "config": "741b416bb34222f3",
-        "x": 3190,
-        "y": 220,
-        "wires": []
     },
     {
         "id": "f1dd287a4485b272",
@@ -213,7 +229,7 @@
         "topic": "NewerFeedback",
         "qos": "2",
         "datatype": "auto",
-        "broker": "22f91514a3ba7ab9",
+        "broker": "421e6af122eb7d8d",
         "nl": false,
         "rap": true,
         "rh": 0,
@@ -518,7 +534,7 @@
         "wires": [
             [
                 "ca33282c2dc2a957",
-                "67a7a6ae29640778"
+                "64abc52502efb7d2"
             ]
         ]
     },
@@ -568,7 +584,7 @@
         "userProps": "",
         "correl": "",
         "expiry": "",
-        "broker": "22f91514a3ba7ab9",
+        "broker": "421e6af122eb7d8d",
         "x": 2060,
         "y": 280,
         "wires": []
@@ -588,7 +604,7 @@
         "once": false,
         "onceDelay": 0.1,
         "topic": "",
-        "payload": "{\"Mode\":\"Stopp\",\"Speed\":\"w\",\"Angle\":2,\"Radius\":2}",
+        "payload": "{\"Mode\":\"Stop\",\"Speed\":0,\"Angle\":\"w\",\"Radius\":2}",
         "payloadType": "json",
         "x": 140,
         "y": 180,
@@ -661,7 +677,7 @@
         "userProps": "",
         "correl": "",
         "expiry": "",
-        "broker": "22f91514a3ba7ab9",
+        "broker": "421e6af122eb7d8d",
         "x": 2600,
         "y": 260,
         "wires": []
@@ -710,7 +726,7 @@
         "userProps": "",
         "correl": "",
         "expiry": "",
-        "broker": "22f91514a3ba7ab9",
+        "broker": "421e6af122eb7d8d",
         "x": 1540,
         "y": 180,
         "wires": []
@@ -754,20 +770,6 @@
         ]
     },
     {
-        "id": "8ce13fc76e21917f",
-        "type": "socketcan-out",
-        "z": "d2076010266e691e",
-        "name": "socketcan-out",
-        "config": "741b416bb34222f3",
-        "x": 3640,
-        "y": 180,
-        "wires": [
-            [
-                "3de04da96d491c54"
-            ]
-        ]
-    },
-    {
         "id": "3de04da96d491c54",
         "type": "function",
         "z": "d2076010266e691e",
@@ -778,8 +780,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 4810,
-        "y": 180,
+        "x": 4070,
+        "y": 120,
         "wires": [
             []
         ]
@@ -810,29 +812,6 @@
         ]
     },
     {
-        "id": "4df23f6f41e4a3de",
-        "type": "inject",
-        "z": "d2076010266e691e",
-        "name": "Stop",
-        "props": [
-            {
-                "p": "payload"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": true,
-        "onceDelay": "5.5",
-        "topic": "",
-        "payload": "{\"canfd\":false,\"ext\":false,\"rtr\":false,\"canid\":11,\"dlc\":5,\"data\":[255,0,2,8,0]}",
-        "payloadType": "json",
-        "x": 3850,
-        "y": 140,
-        "wires": [
-            []
-        ]
-    },
-    {
         "id": "7ab94a45d27316ae",
         "type": "mqtt out",
         "z": "d2076010266e691e",
@@ -845,7 +824,7 @@
         "userProps": "",
         "correl": "",
         "expiry": "",
-        "broker": "22f91514a3ba7ab9",
+        "broker": "421e6af122eb7d8d",
         "x": 4840,
         "y": 60,
         "wires": []
@@ -889,20 +868,6 @@
         ]
     },
     {
-        "id": "25df5292931aae6a",
-        "type": "socketcan-out",
-        "z": "d2076010266e691e",
-        "name": "socketcan-out",
-        "config": "741b416bb34222f3",
-        "x": 3640,
-        "y": 280,
-        "wires": [
-            [
-                "7b6728d4f1334eed"
-            ]
-        ]
-    },
-    {
         "id": "d4a7adb7e534dc6d",
         "type": "mqtt out",
         "z": "d2076010266e691e",
@@ -915,7 +880,7 @@
         "userProps": "",
         "correl": "",
         "expiry": "",
-        "broker": "22f91514a3ba7ab9",
+        "broker": "421e6af122eb7d8d",
         "x": 4840,
         "y": 280,
         "wires": []
@@ -928,7 +893,7 @@
         "topic": "NewerDriveData",
         "qos": "2",
         "datatype": "auto",
-        "broker": "22f91514a3ba7ab9",
+        "broker": "421e6af122eb7d8d",
         "nl": false,
         "rap": true,
         "rh": 0,
@@ -1034,6 +999,121 @@
         "wires": []
     },
     {
+        "id": "64abc52502efb7d2",
+        "type": "socketcan-in",
+        "z": "d2076010266e691e",
+        "name": "socketcan-in",
+        "config": "98a6cce324aeb5e3",
+        "x": 3190,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "654cb07db4907665",
+        "type": "socketcan-out",
+        "z": "d2076010266e691e",
+        "name": "socketcan-out",
+        "config": "98a6cce324aeb5e3",
+        "x": 3570,
+        "y": 280,
+        "wires": [
+            [
+                "7b6728d4f1334eed"
+            ]
+        ]
+    },
+    {
+        "id": "bb96c6e8a8a2cb7b",
+        "type": "inject",
+        "z": "d2076010266e691e",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "1",
+        "topic": "",
+        "payload": "{     \"canfd\":false,     \"ext\":false,     \"rtr\":false,     \"canid\":11,     \"dlc\":5,     \"data\":[255,0,0,0,0]}",
+        "payloadType": "jsonata",
+        "x": 3710,
+        "y": 120,
+        "wires": [
+            [
+                "3de04da96d491c54"
+            ]
+        ]
+    },
+    {
+        "id": "bb25fe38e662adcf",
+        "type": "config",
+        "z": "d2076010266e691e",
+        "name": "Cache",
+        "properties": [
+            {
+                "p": "FeedbackDriveMode",
+                "pt": "flow",
+                "to": "1",
+                "tot": "num"
+            },
+            {
+                "p": "InputMode",
+                "pt": "flow",
+                "to": "1",
+                "tot": "num"
+            },
+            {
+                "p": "FeedbackDriveSpeed",
+                "pt": "flow",
+                "to": "1",
+                "tot": "num"
+            },
+            {
+                "p": "InputSpeed",
+                "pt": "flow",
+                "to": "1",
+                "tot": "num"
+            },
+            {
+                "p": "FeedbackDriveShiftedAngle",
+                "pt": "flow",
+                "to": "1",
+                "tot": "num"
+            },
+            {
+                "p": "InputAngle",
+                "pt": "flow",
+                "to": "1",
+                "tot": "num"
+            },
+            {
+                "p": "FeedbackDriveAngle",
+                "pt": "flow",
+                "to": "1",
+                "tot": "num"
+            },
+            {
+                "p": "InputRadius",
+                "pt": "flow",
+                "to": "1",
+                "tot": "num"
+            },
+            {
+                "p": "FeedbackDriveRadius",
+                "pt": "flow",
+                "to": "1",
+                "tot": "num"
+            }
+        ],
+        "active": true,
+        "x": 110,
+        "y": 120,
+        "wires": []
+    },
+    {
         "id": "7a6ee82c5172bf43",
         "type": "inject",
         "z": "58d29239db35f478",
@@ -1091,30 +1171,6 @@
         "finalize": "",
         "libs": [],
         "x": 320,
-        "y": 60,
-        "wires": [
-            [
-                "5a7c1fa1e7baf462"
-            ]
-        ]
-    },
-    {
-        "id": "5a7c1fa1e7baf462",
-        "type": "socketcan-in",
-        "z": "58d29239db35f478",
-        "name": "socketcan-in",
-        "config": "741b416bb34222f3",
-        "x": 590,
-        "y": 60,
-        "wires": []
-    },
-    {
-        "id": "ebdf8292ba882b2a",
-        "type": "socketcan-out",
-        "z": "58d29239db35f478",
-        "name": "socketcan-out",
-        "config": "741b416bb34222f3",
-        "x": 790,
         "y": 60,
         "wires": [
             []
@@ -1208,9 +1264,7 @@
         "x": 100,
         "y": 120,
         "wires": [
-            [
-                "5a7c1fa1e7baf462"
-            ]
+            []
         ]
     },
     {
@@ -1261,31 +1315,17 @@
         ]
     },
     {
-        "id": "f52d91a5f9cd9b3e",
-        "type": "socketcan-out",
-        "z": "23feec37c6c261df",
-        "name": "socketcan-out",
-        "config": "741b416bb34222f3",
-        "x": 150,
-        "y": 40,
-        "wires": [
-            [
-                "77fb12d7cd70bb36"
-            ]
-        ]
-    },
-    {
         "id": "77fb12d7cd70bb36",
         "type": "function",
         "z": "23feec37c6c261df",
-        "name": "switchMode",
-        "func": "if(msg.payload.canid == 9)\n{\n    msg.payload = \"001:\" + msg.payload.data\n    return msg\n}\nif(msg.payload.canid == 10)\n{\n    msg.payload = \"002:\" + msg.payload.data\n    return msg\n}\n",
+        "name": "CAN-ID-9-Filter",
+        "func": "if(msg.payload.canid == 9)\n{\n    msg.payload = msg.payload.data\n    return msg\n}\n",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 350,
+        "x": 360,
         "y": 40,
         "wires": [
             [
@@ -1297,17 +1337,17 @@
         "id": "28ead4a8a5871023",
         "type": "mqtt out",
         "z": "23feec37c6c261df",
-        "name": "SensorData",
-        "topic": "SensorData",
-        "qos": "",
-        "retain": "",
+        "name": "Distance_Rear",
+        "topic": "Distance_Rear",
+        "qos": "0",
+        "retain": "false",
         "respTopic": "",
         "contentType": "",
         "userProps": "",
         "correl": "",
         "expiry": "",
-        "broker": "22f91514a3ba7ab9",
-        "x": 550,
+        "broker": "421e6af122eb7d8d",
+        "x": 620,
         "y": 40,
         "wires": []
     },
@@ -1319,12 +1359,12 @@
         "topic": "SensorData",
         "qos": "2",
         "datatype": "auto",
-        "broker": "22f91514a3ba7ab9",
+        "broker": "421e6af122eb7d8d",
         "nl": false,
         "rap": true,
         "rh": 0,
         "inputs": 0,
-        "x": 770,
+        "x": 910,
         "y": 40,
         "wires": [
             [
@@ -1344,7 +1384,7 @@
         "complete": "false",
         "statusVal": "",
         "statusType": "auto",
-        "x": 950,
+        "x": 1130,
         "y": 40,
         "wires": []
     },
@@ -1360,22 +1400,12 @@
         "finalize": "",
         "libs": [],
         "x": 450,
-        "y": 120,
+        "y": 400,
         "wires": [
             [
-                "c56f4aabc61894ed"
+                "53a57fb91b03381e"
             ]
         ]
-    },
-    {
-        "id": "c56f4aabc61894ed",
-        "type": "socketcan-in",
-        "z": "23feec37c6c261df",
-        "name": "socketcan-in",
-        "config": "741b416bb34222f3",
-        "x": 790,
-        "y": 120,
-        "wires": []
     },
     {
         "id": "c77c5884bd8cec5a",
@@ -1395,7 +1425,7 @@
         "payload": "2",
         "payloadType": "num",
         "x": 170,
-        "y": 120,
+        "y": 400,
         "wires": [
             [
                 "7d91ae6179051815"
@@ -1414,22 +1444,12 @@
         "finalize": "",
         "libs": [],
         "x": 910,
-        "y": 220,
+        "y": 500,
         "wires": [
             [
-                "481bfe9f7c184138"
+                "72b130581e712c6b"
             ]
         ]
-    },
-    {
-        "id": "481bfe9f7c184138",
-        "type": "socketcan-in",
-        "z": "23feec37c6c261df",
-        "name": "socketcan-in",
-        "config": "741b416bb34222f3",
-        "x": 1170,
-        "y": 220,
-        "wires": []
     },
     {
         "id": "4ba63cd3637c1fed",
@@ -1470,7 +1490,7 @@
         "msgProperty": "payload.data",
         "msgPropertyType": "str",
         "x": 490,
-        "y": 220,
+        "y": 500,
         "wires": [
             [
                 "5e7e6078afb7da54"
@@ -1505,11 +1525,120 @@
         "onceDelay": "5",
         "topic": "",
         "x": 150,
-        "y": 220,
+        "y": 500,
         "wires": [
             [
                 "4ba63cd3637c1fed"
             ]
         ]
+    },
+    {
+        "id": "4d7c2ce9dc864e0b",
+        "type": "socketcan-out",
+        "z": "23feec37c6c261df",
+        "name": "socketcan-out",
+        "config": "98a6cce324aeb5e3",
+        "x": 150,
+        "y": 40,
+        "wires": [
+            [
+                "77fb12d7cd70bb36",
+                "d101c4734c6d808f"
+            ]
+        ]
+    },
+    {
+        "id": "53a57fb91b03381e",
+        "type": "socketcan-in",
+        "z": "23feec37c6c261df",
+        "name": "socketcan-in",
+        "config": "98a6cce324aeb5e3",
+        "x": 690,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "72b130581e712c6b",
+        "type": "socketcan-in",
+        "z": "23feec37c6c261df",
+        "name": "socketcan-in",
+        "config": "98a6cce324aeb5e3",
+        "x": 1130,
+        "y": 500,
+        "wires": []
+    },
+    {
+        "id": "d101c4734c6d808f",
+        "type": "function",
+        "z": "23feec37c6c261df",
+        "name": "CAN-ID-10-Filter",
+        "func": "if(msg.payload.canid == 10)\n{\n    msg.payload = msg.payload.data\n    return msg\n}\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 370,
+        "y": 100,
+        "wires": [
+            [
+                "ab19eef5e9fa4d10"
+            ]
+        ]
+    },
+    {
+        "id": "ab19eef5e9fa4d10",
+        "type": "mqtt out",
+        "z": "23feec37c6c261df",
+        "name": "Environmental_Data",
+        "topic": "Environmental_Data",
+        "qos": "0",
+        "retain": "false",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "421e6af122eb7d8d",
+        "x": 640,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "1d51b0204f72fed6",
+        "type": "function",
+        "z": "23feec37c6c261df",
+        "name": "switchMode",
+        "func": "if(msg.payload.canid == 9)\n{\n    msg.payload = msg.payload.data\n    return msg\n}\n\nif(msg.payload.canid == 10)\n{\n    msg.payload = msg.payload.data\n    return msg\n}\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 350,
+        "y": 160,
+        "wires": [
+            [
+                "aaa9cdb8f8c26d67"
+            ]
+        ]
+    },
+    {
+        "id": "aaa9cdb8f8c26d67",
+        "type": "mqtt out",
+        "z": "23feec37c6c261df",
+        "name": "SensorData",
+        "topic": "SensorData",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "421e6af122eb7d8d",
+        "x": 610,
+        "y": 160,
+        "wires": []
     }
 ]
