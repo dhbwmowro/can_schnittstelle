@@ -16,6 +16,14 @@
         "env": []
     },
     {
+        "id": "23feec37c6c261df",
+        "type": "tab",
+        "label": "Sensoren",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
         "id": "741b416bb34222f3",
         "type": "socketcan-config",
         "interface": "can0"
@@ -81,7 +89,8 @@
         "y": 240,
         "wires": [
             [
-                "ddd20385d637b753"
+                "ddd20385d637b753",
+                "7e898396f4b973b4"
             ]
         ]
     },
@@ -116,8 +125,8 @@
         "z": "d2076010266e691e",
         "name": "socketcan-in",
         "config": "741b416bb34222f3",
-        "x": 3250,
-        "y": 180,
+        "x": 3190,
+        "y": 220,
         "wires": []
     },
     {
@@ -128,8 +137,8 @@
         "property": "payload",
         "action": "obj",
         "pretty": true,
-        "x": 1350,
-        "y": 220,
+        "x": 1510,
+        "y": 260,
         "wires": [
             [
                 "ff7ffd42f8a0c80a"
@@ -188,8 +197,8 @@
         "swap3Type": "swap",
         "msgProperty": "payload.data",
         "msgPropertyType": "str",
-        "x": 2610,
-        "y": 180,
+        "x": 2770,
+        "y": 220,
         "wires": [
             [
                 "78f81452ce40e35b"
@@ -201,7 +210,7 @@
         "type": "mqtt in",
         "z": "d2076010266e691e",
         "name": "",
-        "topic": "NewFeedback",
+        "topic": "NewerFeedback",
         "qos": "2",
         "datatype": "auto",
         "broker": "22f91514a3ba7ab9",
@@ -209,7 +218,7 @@
         "rap": true,
         "rh": 0,
         "inputs": 0,
-        "x": 110,
+        "x": 120,
         "y": 820,
         "wires": [
             [
@@ -222,14 +231,14 @@
         "type": "function",
         "z": "d2076010266e691e",
         "name": "switchMode",
-        "func": "switch (msg.payload.Mode)\n{\ncase \"Stop\":\n    \n    msg.payload.binMode=0b11111111\n    return msg;\n    \ncase \"Forward\":\n\n    msg.payload.binMode=0b00000001\n    return msg;  \n    \ncase \"Backward\":\n\n     msg.payload.binMode=0b00000010\n    return msg; \n\ncase \"RightTurnForward\":\n\n     msg.payload.binMode=0b00000011\n    return msg;\n    \ncase \"RightTurnBackward\":\n\n      msg.payload.binMode=0b00000100\n    return msg;\n    \ncase \"LeftTurnForward\":\n\n    msg.payload.binMode=0b00000101\n    return msg;\n    \ncase \"LeftTurnBackward\":\n\n     msg.payload.binMode=0b00000110\n    return msg;\n    \ncase \"ClockwiseRotation\":\n\n    msg.payload.binMode=0b00000111\n    return msg;\n    \ncase \"CounterClockwiseRotation\":\n\n    msg.payload.binMode=0b00001000\n    return msg;\n\ndefault:\n    msg.payload = \"Mode nicht definiert. Bitte Eingabeparameter ueberpruefen!\"\n    return msg;\n}",
+        "func": "switch (msg.payload.Mode)\n{\ncase \"Stop\":\n    \n    msg.payload.binMode=0b11111111\n    return msg;\n    \ncase \"Forward\":\n\n    msg.payload.binMode=0b00000001\n    return msg;  \n    \ncase \"Backward\":\n\n     msg.payload.binMode=0b00000010\n    return msg; \n\ncase \"RightTurnForward\":\n\n     msg.payload.binMode=0b00000011\n    return msg;\n    \ncase \"RightTurnBackward\":\n\n      msg.payload.binMode=0b00000100\n    return msg;\n    \ncase \"LeftTurnForward\":\n\n    msg.payload.binMode=0b00000101\n    return msg;\n    \ncase \"LeftTurnBackward\":\n\n     msg.payload.binMode=0b00000110\n    return msg;\n    \ncase \"ClockwiseRotation\":\n\n    msg.payload.binMode=0b00000111\n    return msg;\n    \ncase \"CounterClockwiseRotation\":\n\n    msg.payload.binMode=0b00001000\n    return msg;\n\ndefault:\n    msg.payload = \"105: Mode nicht definiert\"\n    return msg;\n}",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1490,
-        "y": 220,
+        "x": 1650,
+        "y": 260,
         "wires": [
             [
                 "0fac06133517bace"
@@ -247,8 +256,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1900,
-        "y": 200,
+        "x": 2060,
+        "y": 240,
         "wires": [
             [
                 "5f62c78599bf213b"
@@ -295,7 +304,7 @@
         "once": false,
         "onceDelay": 0.1,
         "topic": "",
-        "payload": "{\"Mode\":\"RightTurnForward\",\"Speed\":9.85697,\"Angle\":489,\"Radius\":1.25848}",
+        "payload": "{\"Mode\":\"RightTurnForward\",\"Speed\":6.85697,\"Angle\":20,\"Radius\":1.25848}",
         "payloadType": "json",
         "x": 150,
         "y": 420,
@@ -442,7 +451,7 @@
         ],
         "repeat": "",
         "crontab": "",
-        "once": true,
+        "once": false,
         "onceDelay": "5",
         "topic": "",
         "payload": "{\"Mode\":\"Stop\",\"Speed\":0,\"Angle\":0,\"Radius\":0}",
@@ -460,14 +469,14 @@
         "type": "function",
         "z": "d2076010266e691e",
         "name": "Angle",
-        "func": "if (msg.payload.Angle > 360)\n{\n    msg.payload = \"Winkel darf maximal 360 Grad gross sein!\"\n}\nelse if (361 > msg.payload.Angle > 255)\n{\n    msg.payload.ShiftAngle = 1\n    msg.payload.Angle = msg.payload.Angle-256\n}\nreturn msg;",
+        "func": "if (msg.payload.Angle > 360)\n{\n    msg.payload = \"106: Winkel darf maximal 360 Grad gross sein\"\n}\nelse if (361 > msg.payload.Angle > 255)\n{\n    msg.payload.ShiftAngle = 1\n    msg.payload.Angle = msg.payload.Angle-256\n}\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 2050,
-        "y": 200,
+        "x": 2210,
+        "y": 240,
         "wires": [
             [
                 "3aeee01204342351"
@@ -485,8 +494,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 2440,
-        "y": 180,
+        "x": 2600,
+        "y": 220,
         "wires": [
             [
                 "bdd8a0509a42a633"
@@ -504,8 +513,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 2790,
-        "y": 180,
+        "x": 2950,
+        "y": 220,
         "wires": [
             [
                 "ca33282c2dc2a957",
@@ -523,20 +532,20 @@
         "rules": [
             {
                 "t": "neq",
-                "v": "Mode nicht definiert. Bitte Eingabeparameter ueberpruefen!",
+                "v": "105: Mode nicht definiert",
                 "vt": "str"
             },
             {
                 "t": "eq",
-                "v": "Mode nicht definiert. Bitte Eingabeparameter ueberpruefen!",
+                "v": "105: Mode nicht definiert",
                 "vt": "str"
             }
         ],
         "checkall": "true",
         "repair": false,
         "outputs": 2,
-        "x": 1680,
-        "y": 220,
+        "x": 1840,
+        "y": 260,
         "wires": [
             [
                 "ead899817251434e"
@@ -551,7 +560,7 @@
         "type": "mqtt out",
         "z": "d2076010266e691e",
         "name": "",
-        "topic": "NewFeedback",
+        "topic": "NewerFeedback",
         "qos": "2",
         "retain": "",
         "respTopic": "",
@@ -560,8 +569,8 @@
         "correl": "",
         "expiry": "",
         "broker": "22f91514a3ba7ab9",
-        "x": 1900,
-        "y": 240,
+        "x": 2060,
+        "y": 280,
         "wires": []
     },
     {
@@ -579,7 +588,7 @@
         "once": false,
         "onceDelay": 0.1,
         "topic": "",
-        "payload": "{\"Mope\":\"Stop\",\"Speed\":2,\"Angle\":0,\"Radius\":0}",
+        "payload": "{\"Mode\":\"Stopp\",\"Speed\":\"w\",\"Angle\":2,\"Radius\":2}",
         "payloadType": "json",
         "x": 140,
         "y": 180,
@@ -616,20 +625,20 @@
         "rules": [
             {
                 "t": "neq",
-                "v": "Winkel darf maximal 360 Grad gross sein!",
+                "v": "106: Winkel darf maximal 360 Grad gross sein",
                 "vt": "str"
             },
             {
                 "t": "eq",
-                "v": "Winkel darf maximal 360 Grad gross sein!",
+                "v": "106: Winkel darf maximal 360 Grad gross sein",
                 "vt": "str"
             }
         ],
         "checkall": "true",
         "repair": false,
         "outputs": 2,
-        "x": 2220,
-        "y": 200,
+        "x": 2380,
+        "y": 240,
         "wires": [
             [
                 "3833bd0a23d1ad42"
@@ -644,7 +653,7 @@
         "type": "mqtt out",
         "z": "d2076010266e691e",
         "name": "",
-        "topic": "NewFeedback",
+        "topic": "NewerFeedback",
         "qos": "2",
         "retain": "",
         "respTopic": "",
@@ -653,8 +662,8 @@
         "correl": "",
         "expiry": "",
         "broker": "22f91514a3ba7ab9",
-        "x": 2440,
-        "y": 220,
+        "x": 2600,
+        "y": 260,
         "wires": []
     },
     {
@@ -666,27 +675,25 @@
         "propertyType": "msg",
         "rules": [
             {
-                "t": "neq",
-                "v": "Syntax ueberpruefen!",
+                "t": "cont",
+                "v": "10",
                 "vt": "str"
             },
             {
-                "t": "eq",
-                "v": "Syntax ueberpruefen!",
-                "vt": "str"
+                "t": "else"
             }
         ],
         "checkall": "true",
         "repair": false,
         "outputs": 2,
-        "x": 1160,
+        "x": 1240,
         "y": 240,
         "wires": [
             [
-                "f1dd287a4485b272"
+                "96a2328dc4d58d28"
             ],
             [
-                "96a2328dc4d58d28"
+                "f1dd287a4485b272"
             ]
         ]
     },
@@ -695,7 +702,7 @@
         "type": "mqtt out",
         "z": "d2076010266e691e",
         "name": "",
-        "topic": "NewFeedback",
+        "topic": "NewerFeedback",
         "qos": "2",
         "retain": "",
         "respTopic": "",
@@ -704,22 +711,22 @@
         "correl": "",
         "expiry": "",
         "broker": "22f91514a3ba7ab9",
-        "x": 1380,
-        "y": 280,
+        "x": 1540,
+        "y": 180,
         "wires": []
     },
     {
         "id": "ddd20385d637b753",
         "type": "function",
         "z": "d2076010266e691e",
-        "name": "",
-        "func": "Mode = (msg.payload.indexOf(\"\\\"Mode\\\":\"));\nSpeed = (msg.payload.indexOf(\",\\\"Speed\\\":\"))\nAngle = (msg.payload.indexOf(\",\\\"Angle\\\":\"));\nRadius = (msg.payload.indexOf(\",\\\"Radius\\\":\"));\n\nif ((Mode==-1) || (Speed==-1) || (Angle==-1) ||(Radius==-1) )\n{\nmsg.payload = \"Syntax ueberpruefen!\"\n}\n\nfor (i = Speed + 9 ; i < Angle; i++) \n{\n   \n   if (isNaN(msg.payload[i]) == true)\n   {\n        if(msg.payload[i] != \".\")\n        {\n            msg.payload = \"Syntax ueberpruefen!\"\n            return msg\n        }\n   }\n    \n}\n\nfor (i = Angle + 9 ; i < Radius; i++) \n{\n   \n   if (isNaN(msg.payload[i]) == true)\n   {\n        if(msg.payload[i] != \".\")\n        {\n            msg.payload = \"Syntax ueberpruefen!\"\n            return msg\n        }\n   }\n    \n}\n\nfor (i = Radius + 10 ; i < msg.payload.length-1; i++) \n{\n   \n   if (isNaN(msg.payload[i]) == true)\n   {\n        if(msg.payload[i] != \".\")\n        {\n            msg.payload = \"Syntax ueberpruefen!\"\n            return msg\n        }\n   }\n    \n}\n\nreturn msg;",
+        "name": "ErrorHandling_Syntax_Code",
+        "func": "Mode = (msg.payload.indexOf(\"\\\"Mode\\\":\"));\nSpeed = (msg.payload.indexOf(\",\\\"Speed\\\":\"))\nAngle = (msg.payload.indexOf(\",\\\"Angle\\\":\"));\nRadius = (msg.payload.indexOf(\",\\\"Radius\\\":\"));\n\nif ((Mode==-1) || (Speed==-1) || (Angle==-1) ||(Radius==-1) )\n{\n    msg.payload = \"101: \\\"Mode\\\" || \\\"Speed\\\" || \\\"Angle\\\" || \\\"Radius\\\" malformed or not included\"\n    return msg\n}\n\nfor (i = Speed + 9 ; i < Angle; i++) \n{\n   \n   if (isNaN(msg.payload[i]) == true)\n   {\n        if(msg.payload[i] != \".\")\n        {\n            msg.payload = \"102: Wert von Speed ist NaN\"\n            return msg\n        }\n   }\n    \n}\n\nfor (i = Angle + 9 ; i < Radius; i++) \n{\n   \n   if (isNaN(msg.payload[i]) == true)\n   {\n        if(msg.payload[i] != \".\")\n        {\n            msg.payload = \"103: Wert von Angle ist NaN\"\n            return msg\n        }\n   }\n    \n}\n\nfor (i = Radius + 10 ; i < msg.payload.length-1; i++) \n{\n   \n   if (isNaN(msg.payload[i]) == true)\n   {\n        if(msg.payload[i] != \".\")\n        {\n            msg.payload = \"104: Wert von Radius ist NaN\"\n            return msg\n        }\n   }\n    \n}\n\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 960,
+        "x": 1000,
         "y": 240,
         "wires": [
             [
@@ -738,7 +745,7 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 3040,
+        "x": 3180,
         "y": 60,
         "wires": [
             [
@@ -752,7 +759,7 @@
         "z": "d2076010266e691e",
         "name": "socketcan-out",
         "config": "741b416bb34222f3",
-        "x": 3480,
+        "x": 3640,
         "y": 180,
         "wires": [
             [
@@ -771,12 +778,10 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 3790,
+        "x": 4810,
         "y": 180,
         "wires": [
-            [
-                "4778da620dbe716c"
-            ]
+            []
         ]
     },
     {
@@ -796,7 +801,7 @@
         "drop": false,
         "allowrate": false,
         "outputs": 1,
-        "x": 3240,
+        "x": 3400,
         "y": 60,
         "wires": [
             [
@@ -821,7 +826,7 @@
         "topic": "",
         "payload": "{\"canfd\":false,\"ext\":false,\"rtr\":false,\"canid\":11,\"dlc\":5,\"data\":[255,0,2,8,0]}",
         "payloadType": "json",
-        "x": 3650,
+        "x": 3850,
         "y": 140,
         "wires": [
             []
@@ -832,7 +837,7 @@
         "type": "mqtt out",
         "z": "d2076010266e691e",
         "name": "",
-        "topic": "NewFeedback",
+        "topic": "NewerFeedback",
         "qos": "2",
         "retain": "false",
         "respTopic": "",
@@ -841,8 +846,191 @@
         "correl": "",
         "expiry": "",
         "broker": "22f91514a3ba7ab9",
-        "x": 3740,
+        "x": 4840,
         "y": 60,
+        "wires": []
+    },
+    {
+        "id": "54ea0e52e20c55a1",
+        "type": "function",
+        "z": "d2076010266e691e",
+        "name": "",
+        "func": "if(flow.get(\"FeedbackDriveMode\") != flow.get(\"InputMode\"))\n{\n    msg.payload = \"205: Zurueckgegebener DriveMode != geforderter DriveMode\"\n    return msg;\n}\nif(flow.get(\"FeedbackDriveSpeed\") != flow.get(\"InputSpeed\"))\n{\n    msg.payload = \"202: Zurueckgegebener Speed != geforderter Speed\"\n    return msg;\n}\nif(flow.get(\"FeedbackDriveShiftedAngle\") != flow.get(\"InputShiftedAngle\") || flow.get(\"FeedbackDriveAngle\") != flow.get(\"InputAngle\"))\n{\n    msg.payload = \"203: Zurueckgegebener Angle != geforderter Angle\"\n    return msg;\n}\nif(flow.get(\"FeedbackDriveRadius\") != flow.get(\"InputRadius\"))\n{\n    msg.payload = \"204: Zurueckgegebener Radius != geforderter Radius\"\n    return msg;\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 3620,
+        "y": 60,
+        "wires": [
+            [
+                "7ab94a45d27316ae"
+            ]
+        ]
+    },
+    {
+        "id": "2e7f87854b4a0a1d",
+        "type": "function",
+        "z": "d2076010266e691e",
+        "name": "FilterCANID_11",
+        "func": "if (msg.payload.canid == 11)\n{\n    msg.payload = \"003:\" + msg.payload.data.toString()\n    return msg;\n}\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 4580,
+        "y": 280,
+        "wires": [
+            [
+                "d4a7adb7e534dc6d"
+            ]
+        ]
+    },
+    {
+        "id": "25df5292931aae6a",
+        "type": "socketcan-out",
+        "z": "d2076010266e691e",
+        "name": "socketcan-out",
+        "config": "741b416bb34222f3",
+        "x": 3640,
+        "y": 280,
+        "wires": [
+            [
+                "7b6728d4f1334eed"
+            ]
+        ]
+    },
+    {
+        "id": "d4a7adb7e534dc6d",
+        "type": "mqtt out",
+        "z": "d2076010266e691e",
+        "name": "",
+        "topic": "NewerDriveData",
+        "qos": "2",
+        "retain": "false",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "22f91514a3ba7ab9",
+        "x": 4840,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "24342c0c0535f846",
+        "type": "mqtt in",
+        "z": "d2076010266e691e",
+        "name": "",
+        "topic": "NewerDriveData",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "22f91514a3ba7ab9",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 120,
+        "y": 880,
+        "wires": [
+            [
+                "cc029c6b5bf83e99"
+            ]
+        ]
+    },
+    {
+        "id": "7b6728d4f1334eed",
+        "type": "function",
+        "z": "d2076010266e691e",
+        "name": "switchMode",
+        "func": "if(msg.payload.canid == 11)\n{\n    switch (msg.payload.data[0])\n    {\n    case 0b11111111:\n        \n        msg.payload.data[0]=\"Stop\"\n        return msg;\n        \n    case 0b00000001:\n    \n        msg.payload.data[0]=\"Forward\"\n        return msg;  \n        \n    case 0b00000010:\n    \n         msg.payload.data[0]=\"Backward\"\n        return msg; \n    \n    case 0b00000011:\n    \n         msg.payload.data[0]=\"RightTurnForward\"\n        return msg;\n        \n    case 0b00000100:\n    \n          msg.payload.data[0]=\"RightTurnBackward\"\n        return msg;\n        \n    case 0b00000101:\n    \n        msg.payload.data[0]=\"LeftTurnForward\"\n        return msg;\n        \n    case 0b00000110:\n    \n         msg.payload.data[0]=\"LeftTurnBackward\"\n        return msg;\n        \n    case 0b00000111:\n    \n        msg.payload.data[0]=\"ClockwiseRotation\"\n        return msg;\n        \n    case 0b00001000:\n    \n        msg.payload.data[0]=\"CounterClockwiseRotation\"\n        return msg;\n    \n    default:\n        msg.payload = \"201: Modeumwandlung fehlgeschlagen. Zurueckgegebener Wert vom Bus: \" + msg.payload.data[0]\n        return msg;\n    }\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 3830,
+        "y": 280,
+        "wires": [
+            [
+                "2995a3808fb432c2"
+            ]
+        ]
+    },
+    {
+        "id": "2995a3808fb432c2",
+        "type": "function",
+        "z": "d2076010266e691e",
+        "name": "calculateSpeed",
+        "func": "// Convert Speed from cm/s in km/h\nmsg.payload.data[1]=msg.payload.data[1]*36/1000\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 4020,
+        "y": 280,
+        "wires": [
+            [
+                "f78ccbbfc550b969"
+            ]
+        ]
+    },
+    {
+        "id": "f78ccbbfc550b969",
+        "type": "function",
+        "z": "d2076010266e691e",
+        "name": "Angle",
+        "func": "msg.payload.data[2] = msg.payload.data[2] + msg.payload.data[3]\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 4190,
+        "y": 280,
+        "wires": [
+            [
+                "d0f1c5059cea80a5"
+            ]
+        ]
+    },
+    {
+        "id": "d0f1c5059cea80a5",
+        "type": "function",
+        "z": "d2076010266e691e",
+        "name": "calculateRadius",
+        "func": "//convert radius from cm to m\n\nmsg.payload.data[3] = msg.payload.data[4]/100\nmsg.payload.data.pop()\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 4360,
+        "y": 280,
+        "wires": [
+            [
+                "2e7f87854b4a0a1d"
+            ]
+        ]
+    },
+    {
+        "id": "7e898396f4b973b4",
+        "type": "debug",
+        "z": "d2076010266e691e",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 950,
+        "y": 300,
         "wires": []
     },
     {
@@ -1073,9 +1261,81 @@
         ]
     },
     {
-        "id": "4778da620dbe716c",
+        "id": "f52d91a5f9cd9b3e",
+        "type": "socketcan-out",
+        "z": "23feec37c6c261df",
+        "name": "socketcan-out",
+        "config": "741b416bb34222f3",
+        "x": 150,
+        "y": 40,
+        "wires": [
+            [
+                "77fb12d7cd70bb36"
+            ]
+        ]
+    },
+    {
+        "id": "77fb12d7cd70bb36",
+        "type": "function",
+        "z": "23feec37c6c261df",
+        "name": "switchMode",
+        "func": "if(msg.payload.canid == 9)\n{\n    msg.payload = \"001:\" + msg.payload.data\n    return msg\n}\nif(msg.payload.canid == 10)\n{\n    msg.payload = \"002:\" + msg.payload.data\n    return msg\n}\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 350,
+        "y": 40,
+        "wires": [
+            [
+                "28ead4a8a5871023"
+            ]
+        ]
+    },
+    {
+        "id": "28ead4a8a5871023",
+        "type": "mqtt out",
+        "z": "23feec37c6c261df",
+        "name": "SensorData",
+        "topic": "SensorData",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "22f91514a3ba7ab9",
+        "x": 550,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "21caad40d5def8d9",
+        "type": "mqtt in",
+        "z": "23feec37c6c261df",
+        "name": "SensorData",
+        "topic": "SensorData",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "22f91514a3ba7ab9",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 770,
+        "y": 40,
+        "wires": [
+            [
+                "2234d3dd67d9d56b"
+            ]
+        ]
+    },
+    {
+        "id": "2234d3dd67d9d56b",
         "type": "debug",
-        "z": "d2076010266e691e",
+        "z": "23feec37c6c261df",
         "name": "",
         "active": true,
         "tosidebar": true,
@@ -1084,118 +1344,171 @@
         "complete": "false",
         "statusVal": "",
         "statusType": "auto",
-        "x": 4050,
-        "y": 180,
+        "x": 950,
+        "y": 40,
         "wires": []
     },
     {
-        "id": "54ea0e52e20c55a1",
+        "id": "7d91ae6179051815",
         "type": "function",
-        "z": "d2076010266e691e",
-        "name": "",
-        "func": "if(flow.get(\"FeedbackDriveMode\") != flow.get(\"InputMode\"))\n{\n    msg.payload = \"Zurueckgegebener DriveMode '\" + flow.get(\"FeedbackDriveMode\").toString() + \"' stimmt nicht mit dem geforderten ueberein!\"\n    return msg;\n}\nif(flow.get(\"FeedbackDriveSpeed\") != flow.get(\"InputSpeed\"))\n{\n    msg.payload = \"Zurueckgegebene Geschwindigkeit '\" + flow.get(\"FeedbackDriveSpeed\").toString() + \"' stimmt nicht mit der geforderten ueberein!\"\n    return msg;\n}\nif(flow.get(\"FeedbackDriveShiftedAngle\") != flow.get(\"InputShiftedAngle\") || flow.get(\"FeedbackDriveAngle\") != flow.get(\"InputAngle\"))\n{\n    msg.payload = \"Zurueckgegebener Winkel '\" + (flow.get(\"FeedbackDriveShiftedAngle\")+flow.get(\"FeedbackDriveAngle\")).toString() + \"' stimmt nicht mit dem geforderten ueberein!\"\n    return msg;\n}\nif(flow.get(\"FeedbackDriveRadius\") != flow.get(\"InputRadius\"))\n{\n    msg.payload = \"Zurueckgegebener Radius '\" + flow.get(\"FeedbackDriveRadius\").toString() + \"' stimmt nicht mit dem geforderten ueberein!\"\n    return msg;\n}",
+        "z": "23feec37c6c261df",
+        "name": "receiveDriveData",
+        "func": "msg.payload=\n{\n    \"canfd\":false,\n    \"ext\":false,\n    \"rtr\":false,\n    \"canid\":9,\n    \"dlc\":5,\n    \"data\":[6]\n}\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 3480,
-        "y": 60,
+        "x": 450,
+        "y": 120,
         "wires": [
             [
-                "7ab94a45d27316ae"
+                "c56f4aabc61894ed"
             ]
         ]
     },
     {
-        "id": "2e7f87854b4a0a1d",
-        "type": "function",
-        "z": "d2076010266e691e",
-        "name": "FilterCANID_11",
-        "func": "if (msg.payload.canid == 11)\n{\n    msg.payload = msg.payload.data.toString()\n    return msg;\n}\n",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 3900,
-        "y": 280,
-        "wires": [
-            [
-                "d4a7adb7e534dc6d"
-            ]
-        ]
-    },
-    {
-        "id": "25df5292931aae6a",
-        "type": "socketcan-out",
-        "z": "d2076010266e691e",
-        "name": "socketcan-out",
+        "id": "c56f4aabc61894ed",
+        "type": "socketcan-in",
+        "z": "23feec37c6c261df",
+        "name": "socketcan-in",
         "config": "741b416bb34222f3",
-        "x": 3480,
-        "y": 280,
-        "wires": [
-            [
-                "2e7f87854b4a0a1d",
-                "7b6728d4f1334eed"
-            ]
-        ]
-    },
-    {
-        "id": "d4a7adb7e534dc6d",
-        "type": "mqtt out",
-        "z": "d2076010266e691e",
-        "name": "",
-        "topic": "DriveData",
-        "qos": "2",
-        "retain": "false",
-        "respTopic": "",
-        "contentType": "",
-        "userProps": "",
-        "correl": "",
-        "expiry": "",
-        "broker": "22f91514a3ba7ab9",
-        "x": 4100,
-        "y": 280,
+        "x": 790,
+        "y": 120,
         "wires": []
     },
     {
-        "id": "24342c0c0535f846",
-        "type": "mqtt in",
-        "z": "d2076010266e691e",
-        "name": "",
-        "topic": "DriveData",
-        "qos": "2",
-        "datatype": "auto",
-        "broker": "22f91514a3ba7ab9",
-        "nl": false,
-        "rap": true,
-        "rh": 0,
-        "inputs": 0,
-        "x": 100,
-        "y": 880,
+        "id": "c77c5884bd8cec5a",
+        "type": "inject",
+        "z": "23feec37c6c261df",
+        "name": "Stop",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": "5",
+        "topic": "",
+        "payload": "2",
+        "payloadType": "num",
+        "x": 170,
+        "y": 120,
         "wires": [
             [
-                "cc029c6b5bf83e99"
+                "7d91ae6179051815"
             ]
         ]
     },
     {
-        "id": "7b6728d4f1334eed",
+        "id": "5e7e6078afb7da54",
         "type": "function",
-        "z": "d2076010266e691e",
-        "name": "switchMode",
-        "func": "if(msg.payload.canid == 11)\n{\n    switch (msg.payload.data[0])\n    {\n    case 0b11111111:\n        \n        msg.payload.data[0]=\"Stop\"\n        return msg;\n        \n    case 0b00000001:\n    \n        msg.payload.data[0]=\"Forward\"\n        return msg;  \n        \n    case 0b00000010:\n    \n         msg.payload.data[0]=\"Backward\"\n        return msg; \n    \n    case 0b00000011:\n    \n         msg.payload.data[0]=\"RightTurnForward\"\n        return msg;\n        \n    case 0b00000100:\n    \n          msg.payload.data[0]=\"RightTurnBackward\"\n        return msg;\n        \n    case 0b00000101:\n    \n        msg.payload.data[0]=\"LeftTurnForward\"\n        return msg;\n        \n    case 0b00000110:\n    \n         msg.payload.data[0]=\"LeftTurnBackward\"\n        return msg;\n        \n    case 0b00000111:\n    \n        msg.payload.data[0]=\"ClockwiseRotation\"\n        return msg;\n        \n    case 0b00001000:\n    \n        msg.payload.data[0]=\"CounterClockwiseRotation\"\n        return msg;\n    \n    default:\n        msg.payload = \"Modeumwandlung fehlgeschlagen. Zurueckgegebener Wert vom Bus \" + msg.payload.data[0]\n        return msg;\n    }\n}",
+        "z": "23feec37c6c261df",
+        "name": "receiveDriveData",
+        "func": "msg.payload=\n{\n    \"canfd\":false,\n    \"ext\":false,\n    \"rtr\":false,\n    \"canid\":10,\n    \"dlc\":5,\n    \"data\":[msg.payload.data[0],msg.payload.data[1],msg.payload.data[2]]\n}\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 3690,
-        "y": 280,
+        "x": 910,
+        "y": 220,
         "wires": [
             [
-                "2e7f87854b4a0a1d"
+                "481bfe9f7c184138"
+            ]
+        ]
+    },
+    {
+        "id": "481bfe9f7c184138",
+        "type": "socketcan-in",
+        "z": "23feec37c6c261df",
+        "name": "socketcan-in",
+        "config": "741b416bb34222f3",
+        "x": 1170,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "4ba63cd3637c1fed",
+        "type": "buffer-maker",
+        "z": "23feec37c6c261df",
+        "name": "",
+        "specification": "spec",
+        "specificationType": "ui",
+        "items": [
+            {
+                "name": "humidity",
+                "type": "uint8",
+                "length": 1,
+                "dataType": "msg",
+                "data": "payload.humidity"
+            },
+            {
+                "name": "temperature",
+                "type": "int8",
+                "length": 1,
+                "dataType": "msg",
+                "data": "payload.temperature"
+            },
+            {
+                "name": "rain",
+                "type": "byte",
+                "length": 1,
+                "dataType": "msg",
+                "data": "payload.rain"
+            }
+        ],
+        "swap1": "",
+        "swap2": "",
+        "swap3": "",
+        "swap1Type": "swap",
+        "swap2Type": "swap",
+        "swap3Type": "swap",
+        "msgProperty": "payload.data",
+        "msgPropertyType": "str",
+        "x": 490,
+        "y": 220,
+        "wires": [
+            [
+                "5e7e6078afb7da54"
+            ]
+        ]
+    },
+    {
+        "id": "2bd9cc6fd95c014c",
+        "type": "inject",
+        "z": "23feec37c6c261df",
+        "name": "Umweltdaten",
+        "props": [
+            {
+                "p": "payload.humidity",
+                "v": "60",
+                "vt": "num"
+            },
+            {
+                "p": "payload.temperature",
+                "v": "20",
+                "vt": "num"
+            },
+            {
+                "p": "payload.rain",
+                "v": "true",
+                "vt": "bool"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": "5",
+        "topic": "",
+        "x": 150,
+        "y": 220,
+        "wires": [
+            [
+                "4ba63cd3637c1fed"
             ]
         ]
     }
