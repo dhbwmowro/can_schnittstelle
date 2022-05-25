@@ -81,6 +81,32 @@
         "interface": "can0"
     },
     {
+        "id": "bc2d5e9c5511daf0",
+        "type": "mqtt-broker",
+        "name": "Lokal",
+        "broker": "raspberrypi.local",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "sessionExpiry": ""
+    },
+    {
         "id": "72f295af932710c5",
         "type": "mqtt out",
         "z": "d2076010266e691e",
@@ -93,7 +119,7 @@
         "userProps": "",
         "correl": "",
         "expiry": "",
-        "broker": "22f91514a3ba7ab9",
+        "broker": "bc2d5e9c5511daf0",
         "x": 600,
         "y": 240,
         "wires": []
@@ -106,7 +132,7 @@
         "topic": "MowRo",
         "qos": "2",
         "datatype": "utf8",
-        "broker": "22f91514a3ba7ab9",
+        "broker": "bc2d5e9c5511daf0",
         "nl": false,
         "rap": true,
         "rh": 0,
@@ -228,7 +254,7 @@
         "topic": "NewerFeedback",
         "qos": "2",
         "datatype": "auto",
-        "broker": "22f91514a3ba7ab9",
+        "broker": "bc2d5e9c5511daf0",
         "nl": false,
         "rap": true,
         "rh": 0,
@@ -583,7 +609,7 @@
         "userProps": "",
         "correl": "",
         "expiry": "",
-        "broker": "22f91514a3ba7ab9",
+        "broker": "bc2d5e9c5511daf0",
         "x": 2060,
         "y": 280,
         "wires": []
@@ -676,7 +702,7 @@
         "userProps": "",
         "correl": "",
         "expiry": "",
-        "broker": "22f91514a3ba7ab9",
+        "broker": "bc2d5e9c5511daf0",
         "x": 2600,
         "y": 260,
         "wires": []
@@ -725,7 +751,7 @@
         "userProps": "",
         "correl": "",
         "expiry": "",
-        "broker": "22f91514a3ba7ab9",
+        "broker": "bc2d5e9c5511daf0",
         "x": 1540,
         "y": 180,
         "wires": []
@@ -741,7 +767,7 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1000,
+        "x": 980,
         "y": 240,
         "wires": [
             [
@@ -823,7 +849,7 @@
         "userProps": "",
         "correl": "",
         "expiry": "",
-        "broker": "22f91514a3ba7ab9",
+        "broker": "bc2d5e9c5511daf0",
         "x": 4840,
         "y": 60,
         "wires": []
@@ -852,7 +878,7 @@
         "type": "function",
         "z": "d2076010266e691e",
         "name": "FilterCANID_11",
-        "func": "if (msg.payload.canid == 11)\n{\n    msg.payload = \"003:\" + msg.payload.data.toString()\n    return msg;\n}\n",
+        "func": "if (msg.payload.canid == 11)\n{\n    msg.payload = msg.payload.data.toString()\n    return msg;\n}\n",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -879,7 +905,7 @@
         "userProps": "",
         "correl": "",
         "expiry": "",
-        "broker": "22f91514a3ba7ab9",
+        "broker": "bc2d5e9c5511daf0",
         "x": 4840,
         "y": 280,
         "wires": []
@@ -892,7 +918,7 @@
         "topic": "NewerDriveData",
         "qos": "2",
         "datatype": "auto",
-        "broker": "22f91514a3ba7ab9",
+        "broker": "bc2d5e9c5511daf0",
         "nl": false,
         "rap": true,
         "rh": 0,
@@ -1094,6 +1120,56 @@
         "active": true,
         "x": 110,
         "y": 120,
+        "wires": []
+    },
+    {
+        "id": "dae292152ab6791d",
+        "type": "mqtt in",
+        "z": "d2076010266e691e",
+        "name": "",
+        "topic": "Custom",
+        "qos": "2",
+        "datatype": "utf8",
+        "broker": "bc2d5e9c5511daf0",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 770,
+        "y": 600,
+        "wires": [
+            [
+                "e7eeb05950da4f7d"
+            ]
+        ]
+    },
+    {
+        "id": "e7eeb05950da4f7d",
+        "type": "function",
+        "z": "d2076010266e691e",
+        "name": "receiveDriveData",
+        "func": "msg.payload = msg.payload.split(',').map(Number);\nmsg.payload.data = [0,0,0,0,0,0,0]\nmsg.payload.data.length = msg.payload.length - 1\nvar i;\nfor (i = 1; i < msg.payload.length; i++)\n{\n      msg.payload.data[i-1] = msg.payload[i];\n}\nmsg.payload=\n{\n    \"canfd\":false,\n    \"ext\":false,\n    \"rtr\":false,\n    \"canid\":msg.payload[0],\n    \"dlc\":msg.payload.data.length,\n    \"data\":msg.payload.data\n}\nreturn msg\n\n\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 990,
+        "y": 600,
+        "wires": [
+            [
+                "2e5b81e8d543afa3"
+            ]
+        ]
+    },
+    {
+        "id": "2e5b81e8d543afa3",
+        "type": "socketcan-in",
+        "z": "d2076010266e691e",
+        "name": "socketcan-in",
+        "config": "98a6cce324aeb5e3",
+        "x": 1230,
+        "y": 600,
         "wires": []
     },
     {
@@ -1329,7 +1405,7 @@
         "userProps": "",
         "correl": "",
         "expiry": "",
-        "broker": "22f91514a3ba7ab9",
+        "broker": "bc2d5e9c5511daf0",
         "x": 620,
         "y": 160,
         "wires": []
@@ -1342,7 +1418,7 @@
         "topic": "Distance_Rear",
         "qos": "0",
         "datatype": "auto",
-        "broker": "22f91514a3ba7ab9",
+        "broker": "bc2d5e9c5511daf0",
         "nl": false,
         "rap": true,
         "rh": 0,
@@ -1376,7 +1452,7 @@
         "type": "function",
         "z": "23feec37c6c261df",
         "name": "receiveDriveData",
-        "func": "msg.payload=\n{\n    \"canfd\":false,\n    \"ext\":false,\n    \"rtr\":false,\n    \"canid\":7,\n    \"dlc\":5,\n    \"data\":[0,1,0]\n}\nreturn msg;",
+        "func": "msg.payload=\n{\n    \"canfd\":false,\n    \"ext\":false,\n    \"rtr\":false,\n    \"canid\":9,\n    \"dlc\":5,\n    \"data\":[0,1,0]\n}\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -1584,7 +1660,7 @@
         "userProps": "",
         "correl": "",
         "expiry": "",
-        "broker": "22f91514a3ba7ab9",
+        "broker": "bc2d5e9c5511daf0",
         "x": 640,
         "y": 220,
         "wires": []
@@ -1640,7 +1716,7 @@
         "userProps": "",
         "correl": "",
         "expiry": "",
-        "broker": "22f91514a3ba7ab9",
+        "broker": "bc2d5e9c5511daf0",
         "x": 610,
         "y": 40,
         "wires": []
@@ -1658,7 +1734,7 @@
         "userProps": "",
         "correl": "",
         "expiry": "",
-        "broker": "22f91514a3ba7ab9",
+        "broker": "bc2d5e9c5511daf0",
         "x": 610,
         "y": 100,
         "wires": []
